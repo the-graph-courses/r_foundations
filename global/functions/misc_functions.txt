@@ -1,0 +1,365 @@
+Button with link
+
+Description:
+
+     Button with link
+
+Usage:
+
+     link_button(link, label = "Download data")
+     
+Source script very quietly
+
+Description:
+
+     Source script very quietly
+
+Usage:
+
+     mute(x)
+     
+Arguments:
+
+       x: script to be sourced
+
+Value:
+
+     nothing
+
+Markdown to HTML table
+
+Description:
+
+     Convert a markdown-formatted table to an HTML one.
+
+Usage:
+
+     md_to_html_table(table_char)
+     
+Arguments:
+
+   table: character value containing the table
+
+    body: Body
+
+Process TGC quizzes
+
+Description:
+
+     Will document this better in due time.  But very briefly: For
+     theory quiz types, this function first calls
+     `reshuffle_stratified_theory_quiz()` or
+     `reshuffle_simple_theory_quiz()` to create unique rmd copies Then,
+     for all quiz types, the rmds are knitted within a loop. Finally
+     the output HTML files are stuffed into an Excel spreadsheet with
+     `quiz_html_to_tab`
+
+Usage:
+
+     process_quiz(
+       quiz_type = quiz_type,
+       quiz_folder = quiz_folder,
+       quiz_title = quiz_title,
+       course_abbrev = course_abbrev,
+       n_quizzes = n_quizzes,
+       questions_per_quiz = NULL
+     )
+     
+Arguments:
+
+quiz_type:
+
+quiz_folder:
+
+quiz_title:
+
+course_abbrev:
+
+n_quizzes:
+
+Print image to R graphic device.
+
+Description:
+
+     Sometimes more wieldy than `knitr::include_graphics`.
+
+Usage:
+
+     print_image(img_path)
+     
+Arguments:
+
+img_path:
+
+Value:
+
+     nothing
+
+Read seeded HTML quiz outputs into data frame for eventual upload
+
+Description:
+
+     This function was created to work with this plugin:
+     https://wooninjas.com/downloads/learndash-quiz-import-export/
+     Since the plugin uses Excel files, the HTML quiz file has to be
+     under 25KB (to fit into an Excel cell) Hence images and data
+     cannot be encoded within the file.  You would need to use the
+     gdrive_upload functions instead to upload data.
+
+Usage:
+
+     quiz_html_to_tab(
+       num_labels,
+       quiz_folder,
+       quiz_title,
+       quiz_name = basename(quiz_folder)
+     )
+     
+Arguments:
+
+quiz_title: User-facing title for quiz. E.g. "4.2.2 Data quiz: Ebola in
+          Sierra Leone"
+
+   seeds: Seeds iterated over to create quiz resamplings
+
+quiz_path: Absolute path to the quiz
+
+course_id: Normally a 5-digit numeric ID obtained from the table on the
+          LearnDash LMS > Courses page
+
+lesson_id: Normally a 5-digit numeric ID obtained from the table on the
+          LearnDash LMS > Lessons page
+
+Value:
+
+     Data frame
+
+Examples:
+
+     # See template chapter for example
+     
+Internal. Parse quiz into separate data frames
+
+Description:
+
+     Internal. Parse quiz into separate data frames
+
+Usage:
+
+     rmd_to_df_list(rmd_file)
+     
+Arguments:
+
+rmd_file: Path to Rmd rile to be parsed
+
+Value:
+
+     List of data frames, with each data frame contaiting an element of
+     the rmd quiz
+
+Pretty print data frames with reactable
+
+Description:
+
+     Pretty print data frames with reactable
+
+Usage:
+
+     reactable_print(df, nrows)
+     
+Arguments:
+
+      df:
+
+   nrows:
+
+Print the GRAPH Courses license
+
+Description:
+
+     Print the GRAPH Courses license
+
+Usage:
+
+     tgc_license()
+     
+Value:
+
+     HTML text and license image
+
+Print list of contributors
+
+Description:
+
+     Print list of contributors
+
+Usage:
+
+     tgc_contributors_list(
+       ids,
+       csv_path = here::here("global/contributors/tgc_contributors.csv")
+     )
+     
+Arguments:
+
+     ids: IDs of contributors
+
+csv_path: Path to source csv
+
+Value:
+
+     HTML output for contributors
+
+Collapsible
+
+Description:
+
+     Collapsible
+
+Usage:
+
+     collapsible(body = "Hint here", summary = "Hint")
+     
+Arguments:
+
+    body: Body
+
+ summary: Label
+
+Export and upload object, and provide students with download button or
+import code to read it in
+
+Description:
+
+     Export and upload object, and provide students with download
+     button or import code to read it in
+
+Usage:
+
+     download_or_read(
+       x,
+       filename = "quiz-data",
+       format = "csv",
+       which = "both",
+       identifier = uuid::UUIDgenerate()
+     )
+     
+Arguments:
+
+       x: object to be exported
+
+filename: name of the file
+
+  format:
+
+identifier: string to suffix the filename with, to permit uniqueness
+          (and avoid overwriting) on our GDrive. Set to NULL to
+          overwrite.
+
+Document functions in an R Script
+
+Description:
+
+     Document functions in an R Script
+
+Usage:
+
+     documenter(source_file)
+     
+Arguments:
+
+source_file: Path to script
+
+Value:
+
+     nothing
+
+Note:
+
+     This is now deprecated in favor of the more powerful
+     document::document
+
+Upload a file to the GRAPH Courses Google Drive
+
+Description:
+
+     By default, each time this function is used, it will upload a
+     *new* copy of the object in question, not overwrite the previous
+     copies.  This is facilitated by the `uuid::UUIDgenerate()`
+     function. If you wish to overwrite old objects, use `identifier =
+     "SOME_FIXED_ID"`.  Your files will then be uploaded as
+     "CHUNK_NAME-SOME_FIXED_ID". Or you could use `identifier = NULL`.
+     Be careful with this though. If there is some object already on
+     the Drive called e.g. "mydat", and two years later, you use this
+     function with `identified = "mydat"`, you will overwrite that old
+     dataset, and may break some quiz that references it.
+
+Usage:
+
+     gdrive_upload(
+       file,
+       obj_type = "image",
+       gdrive_dir = "quizzes/images/",
+       identifier = uuid::UUIDgenerate(),
+       role = "reader",
+       type = "anyone"
+     )
+     
+Arguments:
+
+    file: Full path to file to be uploaded
+
+gdrive_dir: Directory on our Google Drive to put the image
+
+identifier: string to suffix the filename with, to permit uniqueness
+          (and avoid overwriting) on our GDrive. Set to NULL to
+          overwrite.
+
+role, type: See `googledrive::drive_share`
+
+Details:
+
+     Note also that you need to run `googledrive::drive_auth(email =
+     "YOUR_EMAIL")` in an interactive session before using this.
+
+     This function is also built to be taken in by knitr to
+     automatically upload images generated in a chunk and return the
+     embedding link.  To set this up, pass this function to the
+     `upload.fun` argument of `knitr$opts_chunk`
+
+Value:
+
+     A link to the now shared file on Google drive. If file is an
+     image, the embed link is returned.
+
+Insert a code chunk containing code for importing a dataset
+
+Description:
+
+     Insert a code chunk containing code for importing a dataset
+
+Usage:
+
+     gdrive_import_chunk(gdrive_link, data_name, format)
+     
+Arguments:
+
+gdrive_link: Google Drive link (for viewing) returned from the
+          `gdrive_upload` function
+
+data_name: Character string. The name of the dataset that the student
+          should use
+
+Value:
+
+     Code chunk for Rmd
+
+Note:
+
+     The chunk where this function is used should have echo = F and
+     results = "asis" as chunk options.
+
+Examples:
+
+     gdrive_import_chunk("https://drive.google.com/file/d/11QgvNvAjDGXK8KprgxJ-kZp5qRDgUVpt/view?usp=drivesdk", "ebola_dat_raw")
+     
