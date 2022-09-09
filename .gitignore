@@ -1,5 +1,6 @@
 *-GITIGNORE*
 *.DS_Store
+.DS_Store
 *.html
 .Rproj.user
 .Rhistory
