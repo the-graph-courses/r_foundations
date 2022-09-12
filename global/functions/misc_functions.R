@@ -334,7 +334,7 @@ reshuffle_stratified_theory_quiz <-
         ungroup()
     }
     
-    final_unique_reshufflings <- unique(reshufflings_of_set_and_version) %>% head(n_reshufflings)
+    final_unique_reshufflings <- unique(reshufflings_of_set_and_version) %>% sample() %>% head(n_reshufflings)
     
     # Report on sampling procedure
     print(paste0("Your quiz has ", possible_unique, " possible unique question combinations. ", 
