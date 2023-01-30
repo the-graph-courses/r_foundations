@@ -1,0 +1,446 @@
+---
+title: 'Lesson notes | R Markdown'
+output:
+  html_document:
+    number_sections: true
+    toc: true
+    toc_float: true
+    css: !expr here::here("global/style/style.css")
+    highlight: kate
+editor_options:
+  markdown:
+    wrap: 100
+  canonical: true
+  chunk_output_type: console
+---
+
+
+```{r, include = FALSE, warning = FALSE, message = FALSE}
+# Load packages 
+if(!require(pacman)) install.packages("pacman")
+pacman::p_load(tidyverse, highcharter, here, htmltools)
+
+# Source functions 
+source(here("global/functions/misc_functions.R"))
+
+# knitr settings
+knitr::opts_chunk$set(warning = F, message = F, class.source = "tgc-code-block", error = T)
+```
+
+# Introduction
+
+The {rmarkdown} package allows you to dynamically generate documents by mixing formatted text and results produced by R code. The generated documents can be in HTML, PDF, Word, and many other formats. It is therefore a very practical tool for exporting, communicating and disseminating analysis results.
+
+There is a whole book on Rmarkdown, so we can only cover some of the essentials here.
+
+This document was itself generated from R Markdown files.
+
+# Create a new document
+
+An R Markdown document is a simple text file saved with the `.Rmd` extension.
+
+In RStudio, you can create a new document by going to the *File* menu then choosing *New file* then *R Markdown...*. The following dialog box appears :
+
+![](images/new_rmd_document.jpg){width="355"}
+
+For now, you can leave all the default values and click OK. A file with sample content is then displayed.
+
+Try editing some of the text in the file. Notice that is made up of some free text and some code sections.
+
+Save your file with `Cmd/Ctrl` + `S`, remembering to give it the extension ".Rmd". E.g. "ebola_analysis.Rmd".
+
+You can now try rendering the document by clicking on the "knit" button at the top right:
+
+![](images/rmarkdown_knit_button.jpg){width="271"}
+
+This will give you a HTML output that looks like this:
+
+![](images/rmarkdown_default_html_output.jpg){width="544"}
+
+The rendered file is stored in the same directory as your Rmd.
+
+::: vocab
+HTML stands for Hyper text markup language and is the format that is used for most documents on the web.
+:::
+
+# Rmarkdown Header (YAML)
+
+Now let's return to the rest of the Rmd to consider it part by part.
+
+The first part of the document is its \*header\*. (It is also called "YAML", which stands for "Yet another markup language", [the name is intended to be humorous]).
+
+    ---
+    title: "Untitled"
+    output: html_document
+    date: "2022-10-09"
+    ---
+
+The YAML header must be located at the very beginning of the document, delimited by three dashes (\`\-\--\`) before and after.
+
+This header contains the document's metadata, such as its title, author, date, plus a whole host of possible options that will allow you to configure or customize the entire document and its rendering. Here, for example, the line \`output: html_document\` indicates that the generated document must be in HTML format.
+
+We can change the `html_document` text to try out some other formats.
+
+First you can make so
+
+With the output set to "word_document", we get this:
+
+And with the output set to "powerpoint_document", we get:
+
+We can even get a simple dashboard format if we set the output to `flexdashboard::flex_dashboard`: (first you must install the package)
+
+If we change the output setting to "pdf_document", we can get the same document in PDF format (for this you may be prompted to install tinytex on your computer):
+
+![](images/rmd_pdf_format.jpg){width="418"}
+
+::: key-point
+For PDF generation, you must have a working `LaTeX` installation on your system. If not, Yihui Xie's `tinytex` extension aims to make it easier to install a minimal `LaTeX` distribution regardless of your machine's operating system. To use it, you must first install the extension with `install.packages('tinytex')`, then run the following command in the console (expect a download of about 200MB): `tinytex::install_tinytex()` More information on [the tinytex website](https://yihui.name/tinytex/).
+:::
+
+And many other formats are possible.
+
+# Visual vs Source mode
+
+Rmarkdown documents can be edited in either a "Source" mode or a "Visual" mode.
+
+You can switch into visual mode for a given document using the toolbars. For older RStudio versions, you may have an `A` button at the top-right of the document toolbar
+
+![](images/old_visual_mode_indic.jpg){width="429"}
+
+For newer RStudio versions, there is a pair of buttons to toggle between the modes:
+
+![](images/visual_mode_toggle.jpg){width="427"}
+
+What's the difference between these two modes?
+
+In source mode you see the raw markdown syntax.
+
+![](images/CleanShot%202022-10-09%20at%2019.28.59.jpg){width="416"}
+
+::: vocab
+Markdown is a simple set of conventions for adding formatting to plain text. For example, to italicize text, you wrap it in as asterisk `*text here*`, and to start a new header, you use the pound sign `#` . We will learn these in detail below
+:::
+
+But in visual mode, you instead see a Microsoft-word like WYSIWIG view:
+
+![](images/CleanShot%202022-10-09%20at%2019.06.09.jpg){width="444"}
+
+with a toolbar for easy formatting:
+
+![](images/CleanShot%202022-10-09%20at%2019.06.38.jpg){width="544"}
+
+That means you do not have remember the syntax for markdown elements. For example, if you want to make a section of text bold, you can simply highlight that piece of text and click on the bold button in the toolbar.
+
+Now, while visual mode is much easier to use, we will teach you markdown syntax here for three reasons:
+
+-   Visual mode is sometimes a buggy experience, and to debug this you'll need to switch to source mode
+
+-   Understandin markdown syntax is useful outside of Rmarkdown
+
+-   Visual mode is not available in RStudio's collaborative mode, which you may make use of
+
+# Markdown syntax
+
+The body of the document consists of text that follows the *Markdown* syntax. A Markdown file is a text file that contains lightweight markup that helps set heading levels or format text. For example, the following text:
+
+    This is text with *italics* and **bold**.
+
+    You can define bulleted lists:
+
+    - first element
+    - second element
+
+Will generate the following formatted text:
+
+> This is text with *italics* and **bold**.
+>
+> You can define bulleted lists:
+>
+> -   first element
+> -   second element We see that words placed between asterisks are italicized, lines that begin with a dash are transformed into a bulleted list, etc.
+
+You can define titles of different levels by starting a line with one or more `#`:
+
+    # Level 1 title
+    ## Level 2 Title
+    ### Level 3 Title
+
+When titles have been defined, if you click on the *Show document outline* icon completely to the right of the toolbar associated with the R Markdown file, a table of contents automatically generated from the titles is displayed and allows you to navigate easily in the document:
+
+![Dynamic TOC](screenshots-GITGNORE/rstudio_rmd_toc.png)
+
+The Markdown syntax allows for other formatting, such as the ability to insert links or images. For example, the following code:
+
+    [Example Link](https://example.com)
+
+Will give the following link:
+
+> [Example Link](https://example.com) In RStudio, the *Help* menu then *Markdown quick reference* gives a more complete overview of the syntax.
+
+# R code blocks
+
+In addition to free text in Markdown format, an R Markdown document contains, as its name suggests, R code. This is included in blocks (*chunks*) delimited by the following syntax:
+
+```{r}
+r_code <- 2+2
+```
+
+As this sequence of characters is not very easy to enter, you can use the *Insert* menu of RStudio and choose *R*[\^3], or use the keyboard shortcut `Ctrl+Alt+i`.
+
+Note that it is possible to use other languages in code chunks.
+
+![Code block insertion menu](images/rstudio_insert_chunk.png)
+
+In RStudio blocks of R code are usually displayed with a slightly different background color to distinguish them from the rest of the document.
+
+When your cursor is in a block, you can enter the R code you want and execute it with Command + Enter. You can also execute all the code contained in a block by clicking on the green "play" button at the top right of the code chunk
+
+## Chunk output inline vs in condole
+
+In RStudio, by default, the results of a block of code (text, table or graphic) are displayed directly *in* the document editing window, allowing them to be easily viewed and kept for the duration of the session.
+
+This behavior can be changed by clicking the gear icon on the toolbar and choosing *Chunk Output in Console*
+
+## Customizing the generated document
+
+## Customize the generated document
+
+The customization of the generated document is done by modifying options in the preamble of the document. However, RStudio offers a small graphical interface to change these options more easily. To do this, click on the gear icon to the right of the *Knit* button and choose *Output Options...*
+
+![R Markdown Output Options](images/rstudio_rmd_output_options.png)
+
+A dialog box appears allowing you to select the desired output format and, depending on the format, different options:
+
+![R Markdown Output Options Dialog](images/rstudio_rmd_output_dialog.png)
+
+For the HTML format for example, the *General* tab allows you to specify if you want a table of contents, its depth, the themes to apply for the document and the syntax highlighting of the R blocks, etc. The *Figures* tab allows you to change the default dimensions of the graphics generated.
+
+When you change options, RStudio will actually change the preamble of your document. So if you choose to show a table of contents and change the syntax highlighting theme, your header will become something like:
+
+    ---
+    title: "R Markdown Review"
+    output:
+       html_document:
+         highlight: kate
+         knock: yes
+    ---
+
+You can modify the options directly by editing the preamble.
+
+Note that it is possible to specify different options depending on the format, for example:
+
+    ---
+    title: "R Markdown Review"
+    output:
+      html_document:
+        highlight: kate
+        knock: yes
+      pdf_document:
+        fig_caption: yes
+        highlight: kate
+    ---
+
+The complete list of possible options is present on [the official documentation site](http://rmarkdown.rstudio.com/formats.html) (very complete and well done) and on the cheat sheet and the reference guide, accessible from RStudio via the *Help* menu then *Cheatsheets*.
+
+## R code block options
+
+It is also possible to pass options to each block of R code to modify its behavior.
+
+Remember that a block of code looks like this:
+
+```{r echo = FALSE, comment = ""}
+cat(
+"```{r}
+x <- 1:5")
+```
+
+The options of a code block are to be placed inside the braces `{r}`.
+
+### Block name
+
+The first possibility is to give a *name* to the block. This is indicated directly after the `r`:
+
+`{r block_name}`
+
+It is not mandatory to name a block, but it can be useful in the event of a compilation error, to identify the block that caused the problem. Be careful, you cannot have two blocks with the same name.
+
+### Options
+
+In addition to a name, a block can be passed a series of options in the form `option=value`. Here is an example of a block with a name and options:
+
+```{r echo = FALSE, comment = ""}
+cat(
+"```{r blockName, echo = FALSE, warning = TRUE}
+x <- 1:5")
+```
+
+And an example of an unnamed block with options:
+
+```{r echo = FALSE, comment = ""}
+cat(
+"```{r echo = FALSE, warning = FALSE}
+x <- 1:5")
+```
+
+One of the useful options is the `echo` option. By default `echo` is `TRUE`, and the block of R code is inserted into the generated document, like this:
+
+```{r}
+x <- 1:5
+print(x)
+```
+
+But if we set the `echo=FALSE` option, then the R code is no longer inserted into the document, and only the result is visible:
+
+```{r echo=FALSE}
+x <- 1:5
+print(x)
+```
+
+Here is a list of some of the available options:
+
+| Option  | Valeurs                       | Description                                                |
+|---------|-------------------------------|------------------------------------------------------------|
+| echo    | TRUE/FALSE                    | Afficher ou non le code R dans le document                 |
+| eval    | TRUE/FALSE                    | Exécuter ou non le code R à la compilation                 |
+| include | TRUE/FALSE                    | Inclure ou non le code R et ses résultats dans le document |
+| results | "hide"/"asis"/"markup"/"hold" | Type de résultats renvoyés par le bloc de code             |
+| warning | TRUE/FALSE                    | Afficher ou non les avertissements générés par le bloc     |
+| message | TRUE/FALSE                    | Afficher ou non les messages générés par le bloc           |
+
+There are many other options described in particular in [R Markdown reference guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf){target = "\_blank"} (PDF in English).
+
+### Change options
+
+It is possible to modify the options manually by editing the header of the code block, but you can also use a small graphical interface offered by RStudio. To do this, simply click on the gear icon located to the right of the header line of each block:
+
+![Code Block Options Menu](images/rstudio_chunk_options.png)
+
+You can then modify the most common options, and click on *Apply* to apply them.
+
+### Global Options
+
+You may want to apply an option to all the blocks in a document. For example, one may wish by default not to display the R code of each block in the final document.
+
+You can set an option globally using the `knitr::opts_chunk$set()` function. For example, inserting `knitr::opts_chunk$set(echo = FALSE)` into a code block will set the `echo = FALSE` option to default for all subsequent blocks.
+
+In general, we place all these global modifications in a special block called `setup` and which is the first block of the document:
+
+```{r echo=FALSE, comment=""}
+cat(
+"```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The advantages of such a system are numerous:
+
+-   a single document can show your entire analysis workflow, since the code, results and text explanations are included
+
+-   the document can be very easily regenerated and updated, for example if the source data has been modified.
+
+-   the variety of output formats (HTML, PDF, Word, slides, dashboards, etc.) makes it easy to present your work to others.
+
+### Crosstabs
+
+By default, tables from the `table` function are displayed as they appear in the R console, in plain text:
+
+```{r}
+library(question)
+data(hdv2003)
+tab <- lprop(table(hdv2003$qualif, hdv2003$sex))
+table
+```
+
+We can improve their presentation by using the `kable` function of the `knitr` extension. This provides suitable formatting depending on the output format. We will therefore have "clean" tables whether in HTML, PDF or word processing formats:
+
+```{r}
+library(knitr)
+kable(tab)
+```
+
+Various arguments can be used to modify the output of `kable`. `digits`, for example, lets you specify the number of significant digits to display in number columns:
+
+```{r}
+kable(tab, digits = 1)
+```
+
+### Data Tables and Flat Sorts
+
+With regard to data tables (tibble or *data frame*), the default HTML display is content with a text display as in the console, very difficult to read as soon as the table exceeds a certain size.
+
+An alternative is to use the `paged_table` function, which displays a paged HTML representation of the table:
+
+![Render a table by `paged_table`](screenshots-GITGNORE/rmarkdown_paged_table.png)
+
+An alternative is to use `kable`, as before for crosstabs, or the `datatable` function of the `DT` extension, which offers even more interactivity:
+
+![Render a table by `DT::datatable`](screenshots-GITGNORE/rmarkdown_datatable.png)
+
+In any case, it is not recommended to display a very large data table in this way, because the resulting HTML file would contain all the data and would therefore be very bulky.
+
+```{block type='rmdnote'}
+You can define a default display mode for all dataframes by modifying the *Output options* of the HTML format (*General* tab, *Print dataframes as*), or by manually modifying the `df_print` option of the `html_document` entry in the preamble.
+Note that the tables resulting from the `freq` function of `questionr` are displayed as data tables (and not as cross tables).
+```
+
+## Document Templates {#templates}
+
+We have seen here the production of "classic" documents, but R Markdown allows you to create many other things.
+
+The extension's documentation site offers [a gallery](http://rmarkdown.rstudio.com/gallery.html) of the different possible outputs. You can create slides, websites or even entire books, like this document.
+
+### Slides
+
+An interesting use is the creation of slideshows for presentations in the form of slides. The principle remains the same: we mix text in Markdown format and R code, and R Markdown transforms everything into presentations in HTML or PDF format. In general, the different slides are separated at certain heading levels.
+
+Some slide templates are included with R Markdown, including:
+
+-   `ioslides` and `Slidy` for HTML presentations
+-   `beamer` for PDF presentations via `LaTeX`
+
+When you create a new document in RStudio, these templates are accessible via the *Presentation* entry:
+
+![Create an R Markdown presentation](screenshots-GITGNORE/rstudio_rmd_presentation.png)
+
+Other extensions, which must be installed separately, also allow slideshows in various formats. These include in particular:
+
+-   [xaringan](https://slides.yihui.name/xaringan/%20for) for HTML presentations based on [remark.js](https://remarkjs.com/)
+-   [revealjs](https://github.com/rstudio/revealjs) for HTML presentations based on [reveal.js](http://lab.hakim.se/reveal-js/#/)
+-   [rmdshower](https://github.com/mangothecat/rmdshower) for HTML slideshows based on [shower](https://github.com/shower/shower)
+
+Once the extension is installed, it generally offers a starting *template* when creating a new document in RStudio. These are accessible from the *From Template* entry.
+
+![Create a presentation from a template](screenshots-GITGNORE/rstudio_rmd_templates.png)
+
+### Templates
+
+There are also different *templates* allowing you to change the format and presentation of the generated documents. A list of these formats and their associated documentation can be accessed from the [formats](http://rmarkdown.rstudio.com/formats.html) documentation page.
+
+Note in particular:
+
+-   the [Distill](https://rstudio.github.io/distill/) format, suitable for scientific or technical publications on the Web
+-   the [Tufte Handouts](http://rmarkdown.rstudio.com/tufte_handout_format.html) format which allows you to produce PDF or HTML documents in a format similar to that used by Edward Tufte for some of his publications
+-   [rticles](https://github.com/rstudio/rticles), package that offers LaTeX templates for several scientific journals
+
+Finally, the [rmdformats](https://github.com/juba/rmdformats) extension offers several HTML templates particularly suitable for long documents:
+
+![`readthedown` template](rmdformats_templates/readthedown.png)
+
+![`downcute` template](rmdformats_templates/downcute.png)
+
+![`robobook` template](rmdformats_templates/robobook.png)
+
+![`material` template](rmdformats_templates/material.png)
+
+Again, most of the time, these document templates offer a starting *template* when creating a new document in RStudio (entry *From Template*):
+
+![Create a document from a template](screenshots-GITGNORE/rstudio_rmd_templates.png)
+
+## Resources
+
+The following resources are all in English...
+
+The book *R for data science*, available online, contains [a chapter dedicated to R Markdown](http://r4ds.had.co.nz/r-markdown.html).
+
+The [extension's official site](http://rmarkdown.rstudio.com/) contains very complete documentation, both for beginners and for advanced users.
+
+Finally, the RStudio help (*Help* menu then *Cheatsheets*) provides access to two summary documents: a synthetic "cheat sheet" (*R Markdown Cheat Sheet*) and a more complete "reference guide" ( *R Markdown Reference Guide*).
