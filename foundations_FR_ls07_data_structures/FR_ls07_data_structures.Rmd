@@ -1,0 +1,295 @@
+---
+title: 'Notes de leçon | Structures de données'
+output:
+  html_document:
+    number_sections: true
+    toc: true
+    toc_float: true 
+    css: !expr here::here("global/style/style.css")
+    highlight: kate
+editor_options:
+  markdown:
+    wrap: 100
+  canonical: true
+  chunk_output_type: console
+---
+
+```{r, include = FALSE, warning = FALSE, message = FALSE}
+# Charger les packages
+if(!require(pacman)) install.packages("pacman")
+pacman::p_load(tidyverse, knitr, here)
+
+# Charger les fonctions
+source(here("global/functions/misc_functions.R"))
+
+# Paramètres knitr
+knitr::opts_chunk$set(warning = F, message = F, class.source = "tgc-code-block", error = T)
+```
+
+# Intro
+
+Dans cette leçon, nous allons jeter un coup d'œil aux structures de données en R. Comprendre les structures de données est crucial pour la manipulation et l'analyse des données. Nous commencerons par explorer les vecteurs, la structure de données de base dans R. Ensuite, nous apprendrons à combiner des vecteurs dans des data frames, la structure la plus courante pour organiser et analyser des données.
+
+# Objectifs d'apprentissage
+
+1. Vous pouvez créer des vecteurs avec la fonction `c()`.
+
+2. Vous pouvez combiner des vecteurs dans des data frames. 
+
+3. Vous comprenez la différence entre un tibble et un data frame.
+
+# Packages
+
+Veuillez charger les packages nécessaires pour cette leçon avec le code ci-dessous :
+
+```{r}
+if(!require(pacman)) install.packages("pacman")
+pacman::p_load(tidyverse)
+```
+
+# Introduction aux vecteurs
+
+Les structures de données les plus élémentaires dans R sont les vecteurs. Les vecteurs sont une collection de valeurs qui partagent toutes la même classe (par exemple, toutes numériques ou toutes caractères). Il peut être utile de penser à un vecteur comme une colonne dans une feuille de calcul Excel.
+
+# Création de vecteurs
+
+Les vecteurs peuvent être créés en utilisant la fonction `c()`, avec les composantes du vecteur séparées par des virgules. Par exemple, le code `c(1, 2, 3)` définit un vecteur avec les éléments `1`, `2` et `3`.
+
+Dans votre script, définissez les vecteurs suivants :
+
+```{r}
+age <- c(18, 25, 46)
+sexe <- c('M', 'F', 'F') 
+test_positif <- c(V, V, F)
+id <- 1:3 # le deux points crée une séquence de nombres
+```
+
+Vous pouvez également vérifier les classes de ces vecteurs :
+
+```{r}
+class(age)
+class(sexe)
+class(test_positif)
+```
+
+::: r-practice
+Chaque ligne de code ci-dessous tente de définir un vecteur avec trois éléments mais contient une erreur. Corrigez les erreurs et effectuez l'affectation.
+
+```{r eval = FALSE}
+my_vec_1 <- (1,2,3)
+my_vec_2 <- c("Obi", "Chika" "Nonso")
+```
+:::
+
+::: vocab
+Les valeurs individuelles au sein d'un vecteur sont appelées *composantes* ou éléments. Donc le vecteur `c(1, 2, 3)` a trois composantes/éléments.
+:::
+
+# Manipulation de vecteurs
+
+De nombreuses fonctions et opérations que vous avez déjà rencontrées dans le cours peuvent être appliquées à des vecteurs.
+
+Par exemple, nous pouvons multiplier notre objet `age` par 2 :
+
+```{r}
+age
+age * 2
+```
+
+Remarquez que chaque élément du vecteur a été multiplié par 2.
+
+Ou, ci-dessous nous prenons la racine carrée de `age` :
+
+```{r}
+age
+sqrt(age)
+```
+
+------------------------------------------------------------------------
+
+Vous pouvez également additionner (numériquement) des vecteurs :
+
+```{r}
+age + id
+```
+
+Remarquez que le premier élément de `age` est ajouté au premier élément de `id` et le deuxième élément de `age` est ajouté au deuxième élément de `id`, et ainsi de suite.
+
+------------------------------------------------------------------------
+
+# Des vecteurs aux data frames
+
+Maintenant que nous maîtrisons la création de vecteurs, passons à l'objet le plus couramment utilisé dans R : les data frames. Un data frame est juste une collection de vecteurs de même longueur avec des métadonnées utiles. Nous pouvons en créer un en utilisant la fonction `data.frame()`.
+
+Nous avons précédemment créé des variables de type vecteur (id, age, sexe et test_positif) pour trois individus :
+
+Nous pouvons maintenant utiliser la fonction `data.frame()` pour les combiner dans une seule structure tabulaire :
+
+```{r}
+donnees_epi <- data.frame(id, age, sexe, test_positif)
+donnees_epi
+```
+
+Remarquez qu'au lieu de créer chaque vecteur séparément, vous pouvez créer votre data frame en définissant chacun des vecteurs à l'intérieur de la fonction `data.frame()`.
+
+```{r}
+donnees_epi_2 <- data.frame(age = c(18, 25, 46), 
+                           sexe = c('M', 'F', 'F'))
+
+donnees_epi_2
+```
+
+
+::: side-note
+La plupart du temps lorsque vous travaillez avec des données dans R, vous les importerez de contextes externes. Mais il est parfois utile de créer des jeux de données *dans* R lui-même. C'est dans de tels cas que la fonction `data.frame()` sera utile.
+:::
+
+Pour extraire les vecteurs du data frame, utilisez la syntaxe `$`. Exécutez les lignes de code suivantes dans votre console pour observer ceci.
+
+```{r eval = FALSE}
+donnees_epi$age
+is.vector(donnees_epi$age) # vérifie que cette colonne est bien un vecteur
+class(donnees_epi$age) # vérifie la classe du vecteur
+```
+
+::: r-practice
+Combinez les vecteurs ci-dessous dans un data frame, avec les noms de colonnes suivants : "name" pour le vecteur de caractères, "number_of_children" pour le vecteur numérique et "is_married" pour le vecteur logique.
+
+```{r}
+vecteur_caracteres <- c("Bob", "Jane", "Joe")
+vecteur_numerique <- c(1, 2, 3)
+vecteur_logique <- c(V, F, F)
+```
+:::
+
+::: r-practice
+Utilisez la fonction `data.frame()` pour définir dans R un data frame qui ressemble au tableau suivant :
+
+ | salle      | nb_fenetres |
+ |------------|-------------|
+ | salle à manger | 3          |
+ | cuisine     | 2          |
+ | chambre     | 5          |
+:::
+
+# Tibbles
+
+La version par défaut des données tabulaires dans R s'appelle un data frame, mais il existe une autre représentation des données tabulaires fournie par le package *tidyverse*. Elle s'appelle un `tibble`, et c'est une version améliorée du data frame.
+
+Vous pouvez convertir un data frame en tibble avec la fonction `as_tibble()` :
+
+```{r}
+donnees_epi
+tibble_epi <- as_tibble(donnees_epi)
+tibble_epi
+```
+
+Remarquez que le tibble donne les dimensions des données dans la première ligne :
+
+```
+👉# A tibble: 3 × 4👈
+     id   age sexe   test_positif
+  <int> <dbl> <chr> <lgl>
+1     1    18 M     TRUE
+2     2    25 F     TRUE  
+3     3    46 F     FALSE
+```
+
+Et indique également les types de données, en haut de chaque colonne : 
+
+```
+# A tibble: 3 × 4
+     id   age sexe   test_positif
+👉  <int> <dbl> <chr> <lgl> 👈
+1     1    18 M     TRUE
+2     2    25 F     TRUE
+3     3    46 F     FALSE
+```
+
+Ici, "int" signifie entier, "dbl" signifie double (un type numérique), "chr" signifie caractère et "lgl" signifie logique.
+
+------------------------------------------------------------------------
+
+L'autre avantage des tibbles est qu'ils évitent d'inonder votre console lorsque vous imprimez un grand tableau.
+
+Considérez par exemple la sortie console des lignes ci-dessous :
+
+```{r eval = F}
+# imprime le data frame infert (un jeu de données R intégré) 
+infert # Impression très longue
+as_tibble(infert) # impression plus gérable
+```
+
+Pour la plupart de vos besoins d'analyse de données, vous devriez préférer les tibbles aux data frames classiques.
+
+
+## `read_csv()` crée des tibbles
+
+Lorsque vous importez des données avec la fonction `read_csv()` de {readr}, vous obtenez un tibble :
+
+```{r}
+ebola_tib <- read_csv("https://tinyurl.com/ebola-data-sample") # Nécessite internet
+class(ebola_tib)
+```
+
+Mais lorsque vous importez des données avec la fonction `read.csv()` de base, vous obtenez un data.frame :
+
+```{r}
+ebola_df <- read.csv("https://tinyurl.com/ebola-data-sample") # Nécessite internet
+class(ebola_df)
+```
+
+Essayez d'imprimer `ebola_tib` et `ebola_df` dans votre console pour observer le comportement d'impression différent des tibbles et des data frames.
+
+C'est une des raisons pour lesquelles nous recommandons d'utiliser `read_csv()` plutôt que `read.csv()`.
+
+# Conclusion
+
+Avec votre compréhension des classes et des structures de données, vous êtes désormais bien équipé pour effectuer des tâches de manipulation de données dans R. Dans les prochaines leçons, nous explorerons les puissantes capacités de transformation de données du package dplyr, qui amélioreront encore vos compétences en analyse de données.
+
+Félicitations d'être arrivé jusque-là ! Vous avez couvert beaucoup de choses et vous pouvez être fier de vous.
+
+# Solutions
+
+Solution au premier bloc r-practice :
+
+```{r}
+my_vec_1 <- c(1,2,3) # Utilisez la fonction 'c' pour créer un vecteur
+my_vec_2 <- c("Obi", "Chika", "Nonso") # Séparez chaque chaîne par une virgule
+```
+
+Solution au deuxième bloc r-practice :
+
+```{r}
+df <- data.frame(name = vecteur_caracteres,
+                 number_of_children = vecteur_numerique,
+                 is_married = vecteur_logique)
+```
+
+Solution au troisième bloc r-practice :
+
+```{r}
+# Solution au troisième bloc r-practice
+pieces <- data.frame(piece = c("salle à manger", "cuisine", "chambre"),
+                     nb_fenetres = c(3, 2, 5))
+
+```
+
+
+## Contributeurs {.unlisted .unnumbered}
+
+L'équipe suivante a contribué à cette leçon : `r tgc_contributors_list(ids = c("dcpcamara", "eduardo", "lolovanco", "kendavidn"))`
+
+<!-- Seuls les membres de l'équipe ayant contribué "substantiellement" à une leçon spécifique doivent être listés ici -->
+
+<!-- Voir https://tinyurl.com/icjme-authorship pour les notes sur la contribution "substantielle"-->
+
+## Références {.unlisted .unnumbered}
+
+Certains éléments de cette leçon ont été adaptés des sources suivantes :
+
+- Wickham, H., & Grolemund, G. (s.d.). *R for data science*. 15 Factors | R for Data Science. Consulté le 26 octobre 2022. https://r4ds.had.co.nz/factors.html.
+
+<!-- (format Chicago. Vous pouvez utiliser https://www.citationmachine.net) -->
+
+`r tgc_license()`

@@ -1,0 +1,487 @@
+---
+title: "Notes de leçon | Utiliser ChatGPT pour l'analyse de données"
+output:
+  html_document:
+    number_sections: true
+    toc: true
+    toc_float: true
+    css: !expr here::here("global/style/style.css")
+    highlight: kate
+editor_options:
+  markdown:
+    wrap: 100
+  canonical: true
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set()
+
+# Charger les packages nécessaires
+if(!require(pacman)) install.packages("pacman")
+pacman::p_load(tidyverse)
+```
+
+# Introduction
+
+ChatGPT, développé par OpenAI, est un modèle de langage qui peut être utilisé pour assister les analystes de données dans diverses tâches. Il peut:
+
+1. Expliquer du code inconnu
+2. Déboguer des erreurs simples
+3. Ajouter des commentaires de code 
+4. Reformatter le code
+5. Générer des graphiques
+6. Effectuer des opérations simples de nettoyage des données
+7. Traduire des langues
+8. Traduire des langages de programmation
+9. Effectuer une opération de recherche et de remplacement fluide
+
+Commençons et voyons comment ça fonctionne!
+
+# Modèles
+
+Lors de notre dernière vérification, ChatGPT est disponible en deux versions principales, toutes deux disponibles sur [chat.openai.com](https://chat.openai.com):
+
+| Modèle       | Disponibilité | Vitesse | Complexité des tâches |
+|-------------|--------------|--------|-----------------|
+| **GPT-3.5** | Gratuit      | Rapide | Tâches simples   |
+| **GPT-4**   | Payant / Bing| Plus lent | Tâches complexes |
+
+Les deux modèles ont leurs avantages et leurs cas d'utilisation. GPT-3.5 convient aux tâches simples et est gratuit à utiliser, tandis que GPT-4, bien que plus lent et payant, peut gérer des tâches plus complexes.
+
+Le service de chat AI de Bing utilise également GPT-4 sous le capot (dernière vérification en septembre 2023), vous pouvez donc accéder à Bing si vous voulez un accès GPT-4 sans payer. Cependant, l'interface Bing est un peu maladroite pour les tâches d'analyse de données, donc si vous pouvez vous permettre de payer pour GPT-4, nous le recommandons vivement.
+
+# Cas d'utilisation
+
+## 1. Expliquer du code inconnu
+
+ChatGPT peut expliquer du code inconnu. Par exemple, si vous rencontrez le code suivant :
+
+```{r eval = F}
+trees %>%
+  select(Height) %>% 
+  filter(Height > 80)
+```
+
+Vous pouvez demander à ChatGPT : "Que fait ce code ?" et coller le code.
+
+Voici la réponse de ChatGPT3.5 :
+
+::: {#chatgpt .message style="background-color: powderblue;"}
+
+Le code que vous avez fourni semble être écrit en R et utilise probablement le package dplyr pour la manipulation de données. Voici une explication étape par étape de ce que fait ce code :
+
+1. `trees %>%` : Cette partie du code utilise l'opérateur `%>%`, également appelé opérateur pipe, qui est utilisé pour enchaîner plusieurs opérations de manipulation de données de manière plus lisible et concise. Il prend le dataframe ou tibble `trees` et le transmet comme premier argument à l'opération suivante.
+
+2. `select(Height) %>%` : Après l'opérateur pipe, la fonction `select()` est utilisée. Elle sélectionne un sous-ensemble de colonnes du dataframe. Dans ce cas, elle sélectionne uniquement la colonne "Height" du dataframe `trees`.
+
+3. `filter(Height > 80)` : Après l'opération `select()`, la fonction `filter()` est utilisée. Cette fonction filtre les lignes en fonction d'une condition spécifiée. Dans ce cas, elle filtre les données pour ne conserver que les lignes où la colonne "Height" a une valeur supérieure à 80.
+
+En résumé, le code prend le dataframe `trees`, sélectionne uniquement la colonne "Height", puis filtre les lignes pour ne conserver que celles où la hauteur est supérieure à 80. Le résultat sera un sous-ensemble des données d'origine ne contenant que les lignes où la hauteur de l'arbre est supérieure à 80.
+
+:::
+
+
+## 2. Déboguer des erreurs simples
+
+ChatGPT peut aider à déboguer des erreurs simples. Vous pouvez demander à ChatGPT : "Veuillez m'aider à comprendre pourquoi le code ne fonctionne pas", puis coller à la fois votre code et le message d'erreur.
+
+Par exemple :
+
+```{r eval = F}
+data_subset_I <- 
+  trees %>%
+  select(Height) %>% 
+  filter(Height > 80)
+
+summary(data_subset_l)
+```
+
+Message d'erreur :
+
+```
+Error in summary(data_subset_I) : object 'data_subset_I' not found
+```
+
+Réponse de ChatGPT3.5 :
+
+::: {#chatgpt .message style="background-color: powderblue;"}
+
+Il semble que vous ayez une faute de frappe dans votre code. Dans l'extrait de code que vous avez fourni, vous créez un sous-ensemble de données et le stockez dans la variable `data_subset_I`, mais ensuite vous essayez de résumer une variable différente `data_subset_l` (notez le "L" minuscule à la fin). Les noms de variables ne sont pas cohérents, ce qui est probablement à l'origine du problème.
+
+Vous devez utiliser le nom de variable correct `data_subset_I` lorsque vous résumer les données. Voici le code corrigé :
+
+```{r eval = F}
+data_subset_I <- 
+  trees %>%
+  select(Height) %>% 
+  filter(Height > 80)
+
+summary(data_subset_I)
+```
+
+Avec ce code corrigé, cela devrait fonctionner comme prévu et résumer le dataframe `data_subset_I`, qui contient les hauteurs d'arbres supérieures à 80.
+
+:::
+
+## 3. Ajouter des commentaires de code
+
+ChatGPT peut également aider à ajouter des commentaires à votre code. Par exemple, vous pouvez dire : "Ajoutez des commentaires au code suivant", puis collez votre code.
+
+```{r eval = F}
+data_subset_2 <- 
+  trees %>%
+  select(Height) %>% 
+  filter(Height > 80)
+
+summary(data_subset_2)
+```
+
+Réponse de ChatGPT3.5 :
+
+::: {#chatgpt .message style="background-color: powderblue;"}
+
+Bien sûr ! Voici le code avec des commentaires ajoutés pour expliquer chaque étape :
+
+```{r eval = F}
+# Sélectionner la colonne 'Height' du dataset 'trees' et créer un nouveau dataset 'data_subset_2'
+data_subset_2 <- 
+  trees %>%
+  select(Height) %>%
+  
+# Filtrer 'data_subset_2' pour ne conserver que les lignes où 'Height' est supérieur à 80  
+  filter(Height > 80)
+
+# Afficher un résumé de 'data_subset_2', y compris des statistiques comme la moyenne, la médiane et les quartiles
+summary(data_subset_2)
+```
+
+Ces commentaires fournissent une explication claire de ce que fait chaque ligne de code, ce qui facilite la compréhension du processus de manipulation et de résumé des données.
+
+:::
+
+## 4. Reformatter le code
+
+ChatGPT peut aider à reformater le code. Par exemple, considérez le code suivant :
+
+```{r eval = F}
+temp<-    trees %>% select(Height) %>%filter(Height > 80)
+```
+
+Vous pouvez demander à ChatGPT : "Aidez-moi à reformater ce code proprement", puis collez le code.
+
+Réponse de ChatGPT3.5 :
+
+::: {#chatgpt .message style="background-color: powderblue;"}
+
+
+Bien sûr, voici le code reformaté :
+
+```R
+temp <- trees %>%
+  select(Height) %>%
+  filter(Height > 80)
+```
+
+J'ai ajouté des sauts de ligne et des indentations pour rendre le code plus lisible et visuellement organisé.
+
+:::
+
+## 5. Faire des graphiques
+
+ChatGPT peut aider à créer des graphiques avec ggplot2. Par exemple, vous pourriez demander :
+
+"Utilisez ggplot2 pour créer un nuage de points de la hauteur par rapport à la circonférence pour le dataset affiché" puis collez l'en-tête des données.
+
+```{r}
+head(trees)
+```
+
+Réponse de ChatGPT3.5 :
+
+::: {#chatgpt .message style="background-color: powderblue;"}
+
+Pour créer un nuage de points de la hauteur par rapport à la circonférence pour le dataset que vous avez fourni en utilisant ggplot2 dans R, vous pouvez suivre ces étapes :
+
+1. Tout d'abord, assurez-vous d'avoir installé le package ggplot2. Si vous ne l'avez pas installé, vous pouvez l'installer avec la commande suivante :
+
+```{r eval = F}
+install.packages("ggplot2")
+```
+
+2. Charger la bibliothèque ggplot2 :
+
+```{r eval = F}
+library(ggplot2)
+```
+
+3. Créer le nuage de points en utilisant la fonction `ggplot()` et la fonction `geom_point()` pour ajouter les points :
+
+```{r eval = F}
+# En supposant que vous avez déjà chargé le dataset
+# Sinon, vous pouvez le charger avec data(trees)
+
+# Créer le nuage de points
+ggplot(trees, aes(x = Girth, y = Height)) +
+  geom_point() +
+  labs(x = "Girth", y = "Height") +
+  ggtitle("Nuage de points Hauteur vs Circonférence")
+```
+
+Ce code créera un nuage de points de la hauteur par rapport à la circonférence en utilisant le dataset `trees`, avec les valeurs de circonférence sur l'axe des abscisses et les valeurs de hauteur sur l'axe des ordonnées. Ajustez les étiquettes et le titre selon vos besoins spécifiques.
+
+:::
+
+Vous pouvez alors poser à ChatGPT une question de suivi comme :
+
+- Ajouter une ligne de meilleur ajustement et écrire l'équation de la ligne dans la légende du graphique.
+- Marquer la hauteur moyenne et la circonférence moyenne sur le graphique.
+- Centrer le titre du graphique.
+
+Ici, nous pouvons voir la différence entre GPT3.5 et 4.
+
+Réponse de ChatGPT3.5 :
+
+::: {#chatgpt .message style="background-color: powderblue;"}
+
+
+```{r}
+scatter_plot <- ggplot(trees, aes(x = Girth, y = Height)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(x = "Girth", y = "Height") +
+  ggtitle("Scatter Plot of Height vs Girth") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+# Calculate mean values
+mean_girth <- mean(trees$Girth)
+mean_height <- mean(trees$Height)
+
+# Add mean points
+scatter_plot <- scatter_plot +
+  geom_point(data = data.frame(Girth = mean_girth, Height = mean_height), color = "red", size = 3) +
+  annotate("text", x = mean_girth, y = mean_height, label = "Mean", color = "red", vjust = -1)
+
+# Print the scatter plot
+print(scatter_plot)
+```
+
+:::
+
+Dans la réponse ChatGPT3.5, l'équation de la droite manque dans la légende.
+Voici la réponse de GPT4 :
+
+::: {#chatgpt .message style="background-color: powderblue;"}
+
+```{r message = F}
+library(tidyverse)
+library(scales)
+
+# Calculate means
+mean_girth <- mean(trees$Girth)
+mean_height <- mean(trees$Height)
+
+# Fit a linear model to calculate the equation of the line
+fit <- lm(Height ~ Girth, data = trees)
+slope <- coef(fit)[2]
+intercept <- coef(fit)[1]
+eq <- paste("y = ", round(slope, 2), "x + ", round(intercept, 2))
+
+# Generate the plot
+p <- ggplot(trees, aes(x = Girth, y = Height)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = FALSE, color = "red",
+              formula = y ~ x) + # Add best-fit line (linear model)
+  geom_vline(xintercept = mean_girth, linetype="dashed") + 
+  geom_hline(yintercept = mean_height, linetype="dashed") +
+  ggtitle("Scatter plot of Height vs Girth") +
+  theme(plot.title = element_text(hjust = 0.5)) +  # Center title
+  scale_x_continuous(breaks = pretty_breaks(n = 10)) +
+  scale_y_continuous(breaks = pretty_breaks(n = 10)) +
+  labs(x = "Girth",
+       y = "Height",
+       caption = eq)   # Add equation to the caption
+
+p
+```
+
+:::
+
+Avec GPT-4, vous obtenez exactement ce que vous voulez, y compris l'équation dans la légende en bas à droite du graphique.
+
+## 6. Opérations simples de nettoyage des données
+
+ChatGPT peut aider pour des tâches simples de nettoyage des données. Par exemple :
+
+Considérez le dataset suivant :
+
+```{r}
+head(trees)
+```
+
+Vous pourriez demander : "Donnez-moi du code dplyr pour trouver la moyenne et la médiane de girth, height et volume."
+
+ChatGPT3.5 nous donne ce code :
+
+::: {#chatgpt .message style="background-color: powderblue;"}
+
+```{r eval = F}
+
+# Utiliser summarise_all pour calculer la moyenne et médiane pour chaque colonne
+result <- trees %>%
+  summarise_all(
+    .funs = list(mean = mean, median = median),
+    na.rm = TRUE
+  )
+
+print(result)
+```
+
+
+:::
+
+## 7. Traduire le langage
+
+ChatGPT peut aider à traduire le texte de votre tutoriel ou documentation d'une langue à une autre, tout en préservant le code. Si vous utilisez d'autres traducteurs, ils traduisent souvent également votre code, ce qui est indésirable.
+
+Par exemple, vous pouvez demander :
+
+"Traduisez la section suivante d'un tutoriel en espagnol"
+
+```{r eval = F}
+dplyr fait partie du cœur de tidyverse, il est donc automatiquement chargé avec :
+
+library(tidyverse)
+
+Il peut également être chargé individuellement.
+
+library(dplyr)
+```
+
+Réponse de ChatGPT 3.5 :
+
+::: {#chatgpt .message style="background-color: powderblue;"}
+
+```
+dplyr es parte del núcleo de tidyverse, por lo que se carga automáticamente con:
+
+library(tidyverse)
+
+También se puede cargar de forma individual.
+
+library(dplyr)
+```
+
+Cette traduction préserve le code dplyr tel quel tout en traduisant le texte environnant en espagnol. Vous pouvez vérifier la validité de cette traduction en la retraduisant en anglais dans une session différente.
+
+## 8. Traduire les langages de programmation
+
+ChatGPT peut aider à traduire entre différents langages de programmation. Par exemple, vous pouvez dire :
+
+"Traduisez le code Stata suivant en R :"
+
+```
+recode age (18/35=1) (36/50=2), into(agegroup)
+```
+
+Réponse de ChatGPT 3.5 :
+
+::: {#chatgpt .message style="background-color: powderblue;"}
+
+En R, vous pouvez obtenir le même recodage de la variable "age" dans une variable "agegroup" en utilisant la fonction `cut()`. Voici le code R équivalent :
+
+```{r eval = F}
+# En supposant que vous avez un dataframe appelé "data" avec une variable "age"
+data$agegroup <- cut(data$age, breaks = c(18, 35, 50), labels = c(1, 2), include.lowest = TRUE)
+```
+
+Dans ce code :
+
+- `data$age` fait référence à la variable "age" dans votre dataframe.
+- `cut()` est utilisée pour créer la variable "agegroup".
+- `breaks` spécifie les points de rupture pour les groupes d'âge (18, 35 et 50).
+- `labels` assigne les étiquettes 1 et 2 aux groupes d'âge correspondants.
+- `include.lowest = TRUE` garantit que les valeurs exactement égales aux points de rupture sont incluses dans le groupe spécifié.
+
+Ce code créera une nouvelle variable "agegroup" dans votre dataframe, similaire à ce que fait le code Stata.
+
+:::
+
+## 9. Opération de recherche et remplacement fluide
+
+Enfin, ChatGPT peut vous aider à refactoriser votre code dans des situations où une simple recherche et remplacement avec votre IDE serait fastidieuse. Par exemple, si "Afghanistan" est écrit de trois façons différentes (avec un "A" majuscule, en minuscules et en tant que code pays dans le titre, "AF"), vous pourriez remplacer toutes les instances par "Ghana".
+
+Vous pouvez demander à ChatGPT :
+
+"Remplacez 'afghanistan' par 'ghana' pour le code ci-dessous :"
+
+```{r}
+afghanistan_2000 <- population %>%
+  filter(country == "Afghanistan", year == 2000) %>%
+  pull(population)
+
+afghanistan_2010 <- population %>%
+  filter(country == "Afghanistan", year == 2010) %>%
+  pull(population)
+
+afghanistan_population <- data.frame(
+  year = c(2000, 2010),
+  population = c(afghanistan_2000, afghanistan_2010)
+)
+
+percent_change <- ((afghanistan_2010 - afghanistan_2000) / afghanistan_2000) * 100
+
+ggplot(afghanistan_population, aes(x = factor(year), y = population, fill = factor(year))) +
+  geom_bar(stat = "identity") +
+  labs(
+    x = "Year",
+    y = "Population",
+    fill = "Year",
+    title = paste0("Change in Population in Afghanistan (AF) from 2000 to 2010 (", round(percent_change, 2), "%)")
+  ) +
+  theme_classic()
+```
+
+Réponse de ChatGPT3.5 :
+
+::: {#chatgpt .message style="background-color: powderblue;"}
+
+```{r}
+ghana_2000 <- population %>%
+  filter(country == "Ghana", year == 2000) %>%
+  pull(population)
+
+ghana_2010 <- population %>%
+  filter(country == "Ghana", year == 2010) %>%
+  pull(population)
+
+ghana_population <- data.frame(
+  year = c(2000, 2010),
+  population = c(ghana_2000, ghana_2010)
+)
+
+percent_change <- ((ghana_2010 - ghana_2000) / ghana_2000) * 100
+
+ggplot(ghana_population, aes(x = factor(year), y = population, fill = factor(year))) +
+  geom_bar(stat = "identity") +
+  labs(
+    x = "Year",
+    y = "Population",
+    fill = "Year",
+    title = paste0("Change in Population in Ghana (GH) from 2000 to 2010 (", round(percent_change, 2), "%)")
+  ) +
+  theme_classic()
+```
+
+Ce code refactorisé fait désormais référence au "Ghana" au lieu de l'"Afghanistan".
+
+:::
+
+## Limites de ChatGPT
+
+Bien que ChatGPT soit un outil puissant pour les analystes de données, il a quelques limites :
+
+1. **Retard dans l'apprentissage** : ChatGPT peut avoir des difficultés avec des logiciels ou bibliothèques plus récents.
+2. **Hallucinations** : Vérifiez toujours la sortie de ChatGPT car il peut parfois générer des sorties incorrectes ou absurdes.
+3. **Longueur d'entrée limitée** : ChatGPT ne peut pas traiter des invites très longues. Pour éviter cela, commencez de nouvelles conversations fréquemment. 
+4. **Compétences mathématiques limitées** : Pour l'instant, ChatGPT n'est pas idéal pour les calculs complexes ou l'analyse de données.
