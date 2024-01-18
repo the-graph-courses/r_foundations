@@ -467,19 +467,19 @@ esquisser(ebola_sierra_leone)
 
 Cela devrait apporter une interface graphique que vous pouvez utiliser pour visualiser différentes variables. Pour visualiser la variable d'âge, faites simplement glisser "age" de la liste des variables vers la zone de l'axe des x :
 
-![](images/CleanShot%202022-09-29%20at%2023.30.37.jpg){width="441"}
+![](images/23.30.37.jpg){width="441"}
 
 Lorsque `age` est dans la case de l'axe des x, vous devriez automatiquement obtenir un histogramme des âges :
 
-![](images/CleanShot%202022-09-29%20at%2023.32.03.jpg){width="554"}
+![](images/23.32.03.jpg){width="554"}
 
 Vous pouvez modifier le type de graphique en cliquant sur le bouton "Histogram" et en sélectionnant l'un des autres types de graphique valides. Essayez lediagramme en boîte, le diagramme en violon et le diagramme de densité et observez les résultats.
 
-![](images/CleanShot%202022-09-29%20at%2023.39.38.jpg){width="215"}
+![](images/23.39.38.jpg){width="215"}
 
 Lorsque vous avez terminé de créer un graphique avec {esquisse}, vous devez copier le code qui a été créé en cliquant sur le bouton "Code" en bas à droite puis "Copy to clipboard" :
 
-![](images/CleanShot%202022-09-29%20at%2023.48.18.jpg){width="403"}
+![](images/23.48.18.jpg){width="403"}
 
 Maintenant, collez ce code dans votre script et assurez-vous que vous pouvez l'exécuter à partir de là. Le code devrait ressembler à ceci :
 
@@ -565,7 +565,7 @@ esquisser(ebola_sierra_leone)
 
 Faites ensuite glisser la variable `district` vers la zone de l'axe X :
 
-![](images/CleanShot%202022-09-30%20at%2000.33.04.jpg)
+![](images/00.33.04.jpg)
 
 Vous devriez obtenir un graphique à barres indiquant le nombre d'individus dans les districts. Copiez le code généré et collez-le dans votre script.
 

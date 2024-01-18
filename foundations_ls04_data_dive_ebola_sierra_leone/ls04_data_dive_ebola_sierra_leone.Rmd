@@ -467,19 +467,19 @@ esquisser(ebola_sierra_leone)
 
 This should bring a graphic user interface that you can use to plot different variables. To visualize the age variable, simply drag `age` from the list of variables into the x axis box:
 
-![](images/CleanShot%202022-09-29%20at%2023.30.37.jpg){width="441"}
+![](images/23.30.37.jpg){width="441"}
 
 When `age` is in the x axis box, you should automatically get a histogram of ages:
 
-![](images/CleanShot%202022-09-29%20at%2023.32.03.jpg){width="554"}
+![](images/23.32.03.jpg){width="554"}
 
 You can change the plot type by clicking on the "Histogram" button and selecting one of the other valid plot types. Try out the boxplot, violin plot and density plot and observe the outputs.
 
-![](images/CleanShot%202022-09-29%20at%2023.39.38.jpg){width="215"}
+![](images/23.39.38.jpg){width="215"}
 
 When you are done creating a plot with {esquisse}, you should copy the code that was created by clicking on the "Code" button at the bottom right then "Copy to clipboard":
 
-![](images/CleanShot%202022-09-29%20at%2023.48.18.jpg){width="403"}
+![](images/23.48.18.jpg){width="403"}
 
 Now, paste that code into your script, and make sure you can run it from there. The code should look something like this:
 
@@ -565,7 +565,7 @@ esquisser(ebola_sierra_leone)
 
 Then drag the `district` variable to the X axis box:
 
-![](images/CleanShot%202022-09-30%20at%2000.33.04.jpg)
+![](images/00.33.04.jpg)
 
 You should get a bar chart showing the count of individuals across districts. Copy the generated code and paste it into your script.
 

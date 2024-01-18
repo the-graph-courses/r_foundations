@@ -152,7 +152,7 @@ Quelle est la différence entre ces deux modes ?
 
 En mode source, vous voyez la syntaxe brute de Markdown.
 
-![](images/CleanShot%202022-10-09%20at%2019.28.59.jpg){width="416"}
+![](images/19.28.59.jpg){width="416"}
 
 ::: vocabulaire
 Markdown est un ensemble simple de conventions permettant d'ajouter de la mise en forme à du texte brut. Par exemple, pour mettre du texte en italique, vous l'enveloppez dans une astérisque `*texte ici*`, et pour commencer un nouvel en-tête, vous utilisez le signe dièse `#`. Nous allons apprendre ces éléments en détail ci-dessous.
@@ -160,11 +160,11 @@ Markdown est un ensemble simple de conventions permettant d'ajouter de la mise e
 
 Mais en mode visuel, vous voyez plutôt une vue semblable à celle de Microsoft Word :
 
-![](images/CleanShot%202022-10-09%20at%2019.06.09.jpg){width="444"}
+![](images/19.06.09.jpg){width="444"}
 
 avec une barre d'outils pour une mise en forme facile :
 
-![](images/CleanShot%202022-10-09%20at%2019.06.38.jpg){width="544"}
+![](images/19.06.38.jpg){width="544"}
 
 Cela signifie que vous n'avez pas à vous souvenir de la syntaxe des éléments Markdown. Par exemple, si vous voulez mettre une section de texte en gras, vous pouvez simplement mettre en surbrillance cette partie de texte et cliquer sur le bouton "gras" dans la barre d'outils.
 
