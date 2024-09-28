@@ -30,9 +30,7 @@ knitr::opts_chunk$set(warning = F, message = F, class.source = "tgc-code-block",
 ebola_sierra_leone <- read_csv(here("data/ebola_sierra_leone.csv"))
 ```
 
-# Getting started: RStudio projects
-
-## Learning objectives
+# Learning objectives
 
 1.  You can set up an RStudio Project and create sub-directories for input data, scripts and analytic outputs.
 
@@ -42,21 +40,21 @@ ebola_sierra_leone <- read_csv(here("data/ebola_sierra_leone.csv"))
 
 4.  You recognize the value of Projects for organizing and sharing your analyses.
 
-## Introduction
+# Introduction
 
 Previously, you walked through some of the essential steps of data analysis, from importing data to calculating basic statistics. But you skipped over one crucial step: setting up a data analysis *project*.
 
-Experienced data analysts keep all the files associated with a specific analysis---input data, R scripts and analytic outputs---together in a single folder. These folders are called *projects* (small p)*,* and RStudio has built-in support for them via RStudio *Projects* (capital P)**.**
+Experienced data analysts keep all the files associated with a specific analysis---input data, R scripts and analytic outputs---together in a single folder. These folders are called *projects* (small p)*,* and RStudio has built-in support for them via RStudio *Projects* (capital P).
 
 In this lesson you will learn how to use these RStudio Projects to organize your data analysis coherently, and improve the reproducibility of your work. You will replicate some of the analysis you did in the last data dive lesson, but in the context of an RStudio Project.
 
 Let's get started.
 
-## Creating a new RStudio Project
+# Creating a new RStudio Project
 
 Creating a new RStudio Project looks different if you are on a local computer and if you are on RStudio Cloud. Jump to the section that is relevant for you.
 
-### On RStudio Cloud
+## On RStudio Cloud
 
 If you are using RStudio Cloud, you have probably *already* created a project, because you can't do any analysis without projects.
 
@@ -76,7 +74,7 @@ The RStudio Project you have now created is just a folder on a virtual computer,
 The .RProj file is what turns a regular computer folder into an "RStudio Project".
 :::
 
-### On a local computer
+## On a local computer
 
 If you are on a local computer, open RStudio, then on the RStudio menu, go to `File > New Project`. Your options may look a little different from the screenshots below depending on your operating system.
 
@@ -118,7 +116,7 @@ Note also that there is a header at the top right of RStudio window that tells y
 
 ![](images/active_project_indicator.png){width="300"}
 
-## Creating Project subfolders
+# Creating Project subfolders
 
 Data analysis projects usually have at least three sub-folders: one for data, another for scripts, and a third for outputs, as seen below:
 
@@ -138,13 +136,13 @@ Now go ahead and create these three sub-folders, "data", "scripts" and "outputs"
 
 ![](images/new_folder_icon.png){width="247" height="76"}
 
-## Adding a dataset to the "data" folder
+# Adding a dataset to the "data" folder
 
 Next, you should move the Ebola dataset you downloaded in the previous lesson to the newly-created "data" sub-folder (you can re-download that dataset at [bit.ly/ebola-data](https://bit.ly/ebola-data){target="_blank"} if you can't find where you stored it).
 
 The procedure for moving this dataset to the "data" folder is different for RStudio Cloud users and those using a local computer. Jump to the section that is relevant for you.
 
-### On RStudio Cloud
+## On RStudio Cloud
 
 If you are on RStudio Cloud, adding the dataset to your "data" folder is straightfoward. Simply navigate to the folder within the Files pane, then click the "Upload" button:
 
@@ -152,7 +150,7 @@ If you are on RStudio Cloud, adding the dataset to your "data" folder is straigh
 
 This will bring up a dialog box where you can select the file for upload.
 
-### On a local computer
+## On a local computer
 
 On a local computer, this step has to be done with your computer's File Explorer/Finder.
 
@@ -166,9 +164,9 @@ On a local computer, this step has to be done with your computer's File Explorer
 
     Here is what moving the file might look like on macOS:
 
-    ## ![](images/drag_from_downloads_to_data.png){width="498"}
+    ![](images/drag_from_downloads_to_data.png){width="498"}
 
-## Creating a script in the "scripts" folder
+# Creating a script in the "scripts" folder
 
 Next, create and save a new R script within the "scripts" folder. You can call this "main_analysis" or something similar. To create a new R script within a folder, first navigate to that folder in the Files pane, then click the "New Blank File" button and select "R script" in the dropdown:
 
@@ -194,7 +192,7 @@ The rest of this lesson will teach you how to conduct your analysis in the conte
 
 You should refer back to this diagram as you proceed through the sections below to help orient yourself.
 
-## Importing data from the "data" folder
+# Importing data from the "data" folder
 
 We will use the code snippet below to demonstrate the flow of data through a Project. Copy and paste this snippet into your "main_analysis.R" script (but don't run it yet). The code replicates parts of the analysis from the data dive lesson.
 
@@ -273,7 +271,7 @@ This would not be the case if you were to use an *absolute* path, something like
 Note that if you are using RStudio Cloud, you are *forced* to use relative paths, because you cannot access the general file system of the virtual computer; you can only work within specific Project folders.
 :::
 
-### Using `here::here()`
+## Using `here::here()`
 
 As you have now seen, RStudio Projects simplify the data import process and improve the reproducibility of your analysis, primarily because they allow you to use relative paths.
 
@@ -289,7 +287,7 @@ What is the point of wrapping the path in `here()`? Well, technically, this is n
 
 So to keep things consistent, we always recommend you use `here()` when pointing to paths, whether in an R script or an RMarkdown script
 
-## Exporting data to the "outputs" folder
+# Exporting data to the "outputs" folder
 
 Importing data is not the only benefit of RStudio Projects; data export is also streamlined when you use Projects. Let's look at this now.
 
@@ -357,7 +355,7 @@ To locate your Project folder in your computer's Finder/File Explorer, go the "F
 If you are on RStudio cloud, then you won't be able to view the CSV in Microsoft Excel until you have "exported" it. Use the "Export" menu option in the Files tab. If this is not immediately visible, click on the gear icon to bring up "More" options, then scroll through to find the "Export" option.
 :::
 
-### Overwriting data
+## Overwriting data
 
 If you need to update the output CSV, you can simply rerun the `write_csv()` function with the updated data object.
 
@@ -391,7 +389,7 @@ To verify that the dataset was actually updated, observe the "Modified" time sta
 
 ![](images/last_modified_time.png){width="436"}
 
-## Exporting plots to the "outputs" folder
+# Exporting plots to the "outputs" folder
 
 Finally, let's look at plot exporting in the context of an RStudio Project.
 
@@ -463,7 +461,7 @@ ggsave(filename = "outputs/numeric_plot.png", plot = num_vars_plot)
 
 Wonderful!
 
-## Sharing a Project
+# Sharing a Project
 
 Projects are also great for sharing your analysis with collaborators.
 
@@ -471,7 +469,7 @@ You can zip up your Project folder and send it to a colleague through email or t
 
 This is a decent setup, but sending projects back and forth may not be ideal for long-term collaboration. So experienced analysts use a technology called *git* to collaborate on projects. But this topic is a bit too advanced for this course; we will cover it in detail in a future course. If you are impatient, you can check out this book chapter: <https://intro2r.com/github_r.html>
 
-## Wrapping up
+# Wrapping up
 
 Congratulations! You now know how to set up and use RStudio Projects!
 
@@ -479,7 +477,7 @@ Hopefully you see the value of organizing your analysis scripts, data and output
 
 That's it for now. See you in the next lesson.
 
-## Contributors {.unlisted .unnumbered}
+# Contributors {.unlisted .unnumbered}
 
 The following team members contributed to this lesson: `r tgc_contributors_list(ids = c("kendavidn"))`
 
@@ -487,7 +485,7 @@ The following team members contributed to this lesson: `r tgc_contributors_list(
 
 <!-- See https://tinyurl.com/icjme-authorship for notes on "substantial" contribution-->
 
-## References {.unlisted .unnumbered}
+# References {.unlisted .unnumbered}
 
 Some material in this lesson was adapted from the following sources:
 

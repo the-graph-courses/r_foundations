@@ -17,13 +17,14 @@ editor_options:
 ```{r, include = FALSE, warning = FALSE, message = FALSE}
 # Load packages 
 if(!require(pacman)) install.packages("pacman")
-pacman::p_load(tidyverse, knitr)
+pacman::p_load(tidyverse, knitr, here)
 
 # Source functions 
 source(here("global/functions/misc_functions.R"))
 
 # knitr settings
-knitr::opts_chunk$set(warning = F, message = F, class.source = "tgc-code-block", error = T)
+knitr::opts_chunk$set(warning = F, message = F, 
+                      class.source = "tgc-code-block", error = T)
 ```
 
 # Intros

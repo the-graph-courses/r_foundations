@@ -20,7 +20,8 @@ editor_options:
 if (!require(pacman)) install.packages("pacman")
 pacman::p_load(tidyverse, knitr, here)
 
-knitr::opts_chunk$set(warning = F, message = F, class.source = "tgc-code-block", error = T)
+knitr::opts_chunk$set(warning = F, message = F, 
+                      class.source = "tgc-code-block", error = T)
 
 # Source functions
 source(here("global/functions/misc_functions.R"))

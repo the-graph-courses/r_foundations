@@ -81,13 +81,13 @@ Le volet supérieur gauche est l'endroit où vous ferez la plupart du codage. Ag
 
 Notez que vous pouvez faire glisser la barre qui sépare les volets de la fenêtre pour les redimensionner.
 
-![](images/drag_to_resize_panes.png){width="231"}
+![](images/drag_to_resize_panes_fr.png){width="231"}
 
 ------------------------------------------------------------------------
 
 Examinons maintenant chacun des onglets de RStudio un par un. Vous trouverez ci-dessous une image récapitulative de ce dont nous allons discuter :
 
-![](images/rstudio_panes_detail.jpg)
+![](images/rstudio_panes_detail_fr.jpg)
 
 ## Source/Éditeur
 
@@ -104,7 +104,7 @@ Voyons maintenant comment utiliser cet éditeur.
 Tout d'abord, **ouvrez un nouveau script** dans le menu File si vous n'en avez pas encore ouvert un: `File > New File > R Script`. Dans le script, tapez ce qui suit :
 
 ```{r eval = F}
-print("enthousiaste pour R!")
+print("Bonjour R")
 ```
 
 Pour **exécuter le code**, placez votre curseur n'importe où dans le code, puis appuyez sur "Commande" + "Entrée" sous macOS ou sur "Contrôle" + "Entrée" sous Windows.
@@ -116,8 +116,8 @@ Cela devrait envoyer le code à la console et l'exécuter.
 Vous pouvez également **exécuter plusieurs lignes à la fois**. Pour essayer cela, ajoutez une deuxième ligne à votre script, de sorte qu'il se lise maintenant comme suit :
 
 ```{r eval = F}
-print("enthousiaste pour R!")
-print("et RStudio")
+print("Bonjour R")
+print("et RStudio!")
 ```
 
 Faites maintenant glisser votre curseur pour mettre en surbrillance les deux lignes et appuyez sur `Commande`/`Contrôle` + `Entrée`.
@@ -146,7 +146,7 @@ Ensuite, **enregistrez le script.** Appuyez sur `Commande`/`Contrôle` + `S` pou
 
 ------------------------------------------------------------------------
 
-Vous pouvez **afficher des trames de données** (qui sont comme des feuilles de calcul dans R) dans le même volet. Pour observer cela, saisissez et exécutez le code ci-dessous sur une nouvelle ligne de votre script :
+Vous pouvez **afficher des jeux de données** (qui sont comme des feuilles de calcul dans R) dans le même volet. Pour observer cela, saisissez et exécutez le code ci-dessous sur une nouvelle ligne de votre script :
 
 ```{r eval = F}
 View(women)
@@ -180,7 +180,7 @@ Pour exécuter l'une de ces lignes précédentes, appuyez sur *Entrée*.
 
 En haut à droite de la fenêtre RStudio, vous devriez voir l'onglet **Environment**.
 
-L'onglet Environment affiche les trames de données et autres objets qui sont chargés dans la mémoire de travail de R, ou "espace de travail".
+L'onglet Environment affiche les jeux de données et autres objets qui sont chargés dans la mémoire de travail de R, ou "espace de travail".
 
 Pour explorer cet onglet, importons une trame de données dans votre environnement à partir du Web. Saisissez le code ci-dessous dans votre script et exécutez-le :
 
@@ -194,13 +194,13 @@ Vous n'avez pas besoin de comprendre exactement ce que fait le code ci-dessus po
 De plus, si vous ne disposez pas d'un accès Internet actif, le code ci-dessus ne fonctionnera pas. Vous pouvez ignorer cette section et passer à l'onglet "History".
 :::
 
-Vous avez maintenant importé la trame de données et l'avez stocké dans un *objet* nommé `ebola_data`. (Vous auriez pu nommer l'objet comme vous voulez.)
+Vous avez maintenant importé le jeu de données et l'avez stocké dans un *objet* nommé `ebola_data`. (Vous auriez pu nommer l'objet comme vous voulez.)
 
-Maintenant que la trame de données est stocké par R, vous devriez pouvoir le voir dans l'onglet Environment. Si vous cliquez sur l'icône déroulante bleue à côté du nom de l'objet dans l'onglet Environment, un résumé s'affiche.
+Maintenant que le jeu de données est stocké par R, vous devriez pouvoir le voir dans l'onglet Environment. Si vous cliquez sur l'icône déroulante bleue à côté du nom de l'objet dans l'onglet Environment, un résumé s'affiche.
 
 ![](images/rstudio_explore_object_dropdown.png){width="351"}
 
-Essayez de cliquer directement sur la trame de données `ebola_data` à partir l'onglet Environment. Cela l'ouvre dans un onglet "Viewer".
+Essayez de cliquer directement sur le jeu de données `ebola_data` à partir l'onglet Environment. Cela l'ouvre dans un onglet "Viewer".
 
 ------------------------------------------------------------------------
 
@@ -216,7 +216,7 @@ L'icône du balai, en haut de l'onglet Environment, peut également être utilis
 
 ![](images/broom_icon.png)
 
-Pour vous entraîner à l'utiliser, essayez de réexécuter la ligne ci-dessus qui importe la trame de données Ebola, puis effacez l'objet à l'aide de l'icône en forme de balai.
+Pour vous entraîner à l'utiliser, essayez de réexécuter la ligne ci-dessus qui importe le jeu de données Ebola, puis effacez l'objet à l'aide de l'icône en forme de balai.
 
 ## History
 
@@ -258,7 +258,7 @@ plot(women)
 
 ![](images/rstudio_plots.png)
 
-Ce code crée un graphique des deux variables dans la trame de données "women". Vous devriez voir cette figure dans l'onglet Plots.
+Ce code crée un graphique des deux variables dans le jeu de données "women". Vous devriez voir cette figure dans l'onglet Plots.
 
 Maintenant, testez les boutons en haut de cet onglet pour explorer ce qu'ils font. En particulier, essayez d'exporter un graphique sur votre ordinateur.
 
@@ -297,7 +297,7 @@ Maintenant que le package {highcharter} a été installé et chargé, vous pouve
 highcharter::hchart(women$weight)
 ```
 
-Ce code utilise la *fonction* `hchart()` du package {highcharter} pour tracer un histogramme interactif montrant la distribution des poids dans la trame de données `women`.
+Ce code utilise la *fonction* `hchart()` du package {highcharter} pour tracer un histogramme interactif montrant la distribution des poids dans le jeu de données `women`.
 
 (Bien sûr, vous ne savez peut-être pas encore ce qu'est une fonction. Nous y reviendrons bientôt.)
 
@@ -335,9 +335,9 @@ Dans le menu RStudio en haut de l'écran, sélectionnez `Tools > Global Options`
 
     ![](images/options_highlight_function_rainbow_parentheses.jpg){width="446"}
 
-    ![](images/highlight_r_function_calls.jpg){width="460" height="66"}
+    ![](images/highlight_r_function_calls_fr.png){width="460" height="66"}
 
-    ![](images/rainbow_parentheses.jpg){width="361"}
+    ![](images/rainbow_parentheses_fr.jpg){width="361"}
 
 -   Enfin, sous `General> Basic`, **décochez** la case indiquant **"Restaurer .RData dans l'espace de travail au démarrage"**. Vous ne souhaitez pas restaurer de données dans votre espace de travail (ou \* Environment)\* lorsque vous démarrez RStudio. Commencer avec un espace de travail propre à chaque fois est moins susceptible de conduire à des erreurs.
 
@@ -379,7 +379,7 @@ Rendez-vous dans la prochaine leçon!
 
 Les membres de l'équipe suivants ont contribué à cette leçon :
 
-`r tgc_contributors_list(ids = c("kendavidn", "ondieki","laure"))`
+`r tgc_contributors_list(ids = c("kendavidn", "ondieki","laure", "sabina"))`
 
 # Références
 

@@ -68,7 +68,7 @@ Pour le moment, vous pouvez laisser toutes les valeurs par défaut et cliquer su
 
 Essayez de modifier une partie du texte dans le fichier. Notez qu'il est constitué de texte libre et de sections de code.
 
-Enregistrez votre fichier avec `Cmd/Ctrl` + `S`, en vous rappelant de lui donner l'extension ".Rmd". Par exemple "analyse_ebola.Rmd". Assurez-vous de le sauvegarder dans le dossier "rmd" que vous venez de créer.
+Enregistrez votre fichier avec `Cmd/Ctrl` + `S`, en vous rappelant de lui donner l'extension `.Rmd`. Par exemple "analyse_ebola.Rmd". Assurez-vous de le sauvegarder dans le dossier "rmd" que vous venez de créer.
 
 Vous pouvez maintenant essayer de compiler le document en cliquant sur le bouton "knit" en haut à droite :
 
@@ -100,7 +100,7 @@ date: "2022-10-09"
 
 L'en-tête YAML doit être placé tout au début du document, délimité par trois tirets (`---`) avant et après.
 
-Cet en-tête contient les métadonnées du document, comme son titre, son auteur, sa date, ainsi qu'une multitude d'options possibles qui vous permettront de configurer ou personnaliser l'ensemble du document et son rendu. Ici, par exemple, la ligne `\output: html_document\` indique que le document généré doit être au format HTML.
+Cet en-tête contient les métadonnées du document, comme son titre, son auteur, sa date, ainsi qu'une multitude d'options possibles qui vous permettront de configurer ou personnaliser l'ensemble du document et son rendu. Ici, par exemple, la ligne `output: html_document` indique que le document généré doit être au format HTML.
 
 Nous pouvons modifier le texte `html_document` pour essayer d'autres formats.
 
@@ -112,7 +112,7 @@ Avec la sortie fixée à "word_document", nous obtenons quelque chose comme ceci
 
 Notez que cela crée une version ".docx" de notre document dans le dossier "rmd".
 
-Avec la sortie définie sur "powerpoint_document", cela donne ceci :
+Avec la sortie définie sur "powerpoint_presentation", cela donne ceci :
 
 ![Image du document R markdown ouvert dans le programme Microsoft Powerpoint](images/rmarkdown_powerpoint_screen.jpg)
 
@@ -273,7 +273,7 @@ output:
 
 La liste complète des options possibles est présente sur [le site de documentation officiel](http://rmarkdown.rstudio.com/formats.html) (très complet et bien fait) ainsi que dans la fiche aide-mémoire et le guide de référence, accessibles depuis RStudio via le menu *Help* puis *Cheatsheets*.
 
-## Blocs de code R
+# Blocs de code R
 
 En plus du texte libre au format Markdown, un document R Markdown contient, comme son nom l'indique, du code R. Celui-ci est inclus dans des blocs (*chunks*) écrits de la façon suivante en mode *Source* :
 
@@ -329,13 +329,11 @@ Il n'est pas obligatoire de nommer un bloc, mais cela peut être utile en cas d'
 
 En plus d'un nom, un bloc peut se voir passer une série d'options sous la forme `option=valeur`. Voici un exemple de bloc avec un nom et des options :
 
-
 ```{r echo = FALSE, comment = ""}
 cat(
 "```{r NomBloc, echo = FALSE, warning = TRUE}
 x <- 1:5")
 ```
-
 
 Et un exemple de bloc sans nom avec des options :
 
@@ -365,7 +363,7 @@ Voici une liste de certaines des options disponibles :
 |------------------------|------------------------|------------------------|
 | echo    | TRUE/FALSE | Afficher (ou masquer) ce bloc de code R dans le document compilé résultant                                                    |
 | eval    | TRUE/FALSE | Exécuter (ou non) le code dans ce bloc de code dans le document compilé résultant                                             |
-| include | TRUE/FALSE | Combiner les options "echo et eval" ; soit afficher et exécuter, soit masquer et ne pas exécuter                               |
+| include | TRUE/FALSE | Combiner les options "echo et eval" ; soit afficher et exécuter, soit masquer et ne pas exécuter                              |
 | message | TRUE/FALSE | Afficher (ou masquer) tous les messages système générés par l'exécution de ce bloc de code dans le document compilé résultant |
 | warning | TRUE/FALSE | Afficher (ou masquer) tous les avertissements générés par l'exécution de ce bloc de code dans le document compilé résultant   |
 
@@ -386,6 +384,7 @@ Vous souhaiterez peut-être appliquer une option à tous les blocs d'un document
 Vous pouvez définir une option globalement en utilisant la fonction `knitr::opts_chunk$set()`. Par exemple, insérer `knitr::opts_chunk$set(echo = FALSE)` dans un bloc de code va définir l'option `echo = FALSE` par défaut pour tous les blocs suivants.
 
 En général, nous plaçons toutes ces modifications globales dans un bloc spécial appelé `setup` qui est le premier bloc du document.
+
 ```{r echo=FALSE, comment=""}
 cat(
 "```{r, include=FALSE}
@@ -395,17 +394,19 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Code entre les lignes
 
-Il est également possible d'écrire des blocs de code intégrés dans le texte. Si vous allez en mode *Source* et que vous tapez :
+Il est également possible d'écrire des blocs de code intégrés dans le texte. Si vous allez en mode *Source* et que vous tapez [ \` ] avant et après:
 
-"La somme d'une paire de 2 est \`r 2+2\`"
+"La somme d'une paire de 2 est `r 2+2`"
 
-et que vous compilez le RMD, le document résultant évaluera le code R entre lesbarres obliques. Notez que vous devez inclure le "r" au début de votre bloc de code entre les lignes pour qu'il le reconnaisse comme du code R.
+et que vous compilez le RMD, le document résultant évaluera le code R entre les " \` ". Notez que vous devez inclure le "r" au début de votre bloc de code entre les lignes pour qu'il le reconnaisse comme du code R.
 
 Vous pourriez également passer des variables dans votre document comme dans un programme R normal. Par exemple, sur une ligne vous pourriez exécuter :
 
-\`\`\`{r} taille_max \<- max(women\$height) \`\`\`
+```{r}
+taille_max <- max(women$height)
+```
 
-"La taille maximale dans le jeu de données women est \`r taille_max\`."
+"La taille maximale dans le jeu de données women est `r taille_max`."
 
 Les avantages d'un tel système sont nombreux :
 
@@ -432,28 +433,27 @@ pacman::p_load(flextable, gt, reactable)
 Flextable est mieux pour afficher des tableaux simples pris en charge par de nombreux formats. GT est mieux pour afficher des tableaux complexes dans des documents HTML. Reactable est plus adapté à l'affichage de très grands tableaux en HTML en donnant à votre public la possibilité de faire défiler les tableaux.
 
 ```{r}
-"Ceci est un tableau flextable" 
+# Ceci est un tableau flextable 
 flextable::flextable(women)
 ```
 
 ```{r}
-"Ceci est un tableau GT"
+# Ceci est un tableau GT
 gt::gt(women)
 ```
 
 ```{r}
-"Ceci est un tableau reactable"
+# Ceci est un tableau reactable
 reactable::reactable(women)
 ```
 
 Vous pouvez voir de nombreux autres types de formats de tableau que les gens ont créés sur <https://www.rstudio.com/blog/rstudio-table-contest-2022/>
 
-
 ## Modèles de documents {#templates}
 
 Nous avons vu ici la production de documents "classiques", mais R Markdown vous permet de créer de nombreuses autres choses.
 
-Le site de documentation de l'extension propose [une galerie](http://rmarkdown.rstudio.com/gallery.html) des différentes sorties possibles. Vous pouvez créer des diapositives, des sites web ou même des livres entiers, comme ce document.
+Le site de documentation de l'extension propose [une galerie](http://rmarkdown.rstudio.com/gallery.html) des différentes sorties possibles. Vous pouvez créer des diaporamas, des sites web ou même des livres entiers, comme ce document.
 
 ### Diapositives
 
@@ -461,8 +461,8 @@ Un usage intéressant est la création de diaporamas pour des présentations sou
 
 Certains modèles de diapositives sont inclus dans R Markdown, notamment :
 
-- `ioslides` et `Slidy` pour les présentations HTML
-- `beamer` pour les présentations PDF via `LaTeX`
+-   `ioslides` et `Slidy` pour les présentations HTML
+-   `beamer` pour les présentations PDF via `LaTeX`
 
 Lorsque vous créez un nouveau document dans RStudio, ces modèles sont accessibles via l'entrée *Presentation* :
 
@@ -470,9 +470,9 @@ Lorsque vous créez un nouveau document dans RStudio, ces modèles sont accessib
 
 D'autres extensions, qui doivent être installées séparément, permettent également de réaliser des diaporamas dans divers formats. Il s'agit notamment de :
 
-- [xaringan](https://slides.yihui.name/xaringan/%20for) pour les présentations HTML basées sur [remark.js](https://remarkjs.com/)
-- [revealjs](https://github.com/rstudio/revealjs) pour les présentations HTML basées sur [reveal.js](http://lab.hakim.se/reveal-js/#/)
-- [rmdshower](https://github.com/mangothecat/rmdshower) pour les diaporamas HTML basés sur [shower](https://github.com/shower/shower)
+-   [xaringan](https://slides.yihui.name/xaringan/%20for) pour les présentations HTML basées sur [remark.js](https://remarkjs.com/)
+-   [revealjs](https://github.com/rstudio/revealjs) pour les présentations HTML basées sur [reveal.js](http://lab.hakim.se/reveal-js/#/)
+-   [rmdshower](https://github.com/mangothecat/rmdshower) pour les diaporamas HTML basés sur [shower](https://github.com/shower/shower)
 
 Une fois l'extension installée, elle offre généralement un *modèle* de départ lors de la création d'un nouveau document dans RStudio. Ceux-ci sont accessibles à partir de l'entrée *From Template*.
 
@@ -484,9 +484,9 @@ Il existe également différents *modèles* vous permettant de changer le format
 
 Notez en particulier :
 
-- le format [Distill](https://rstudio.github.io/distill/), adapté aux publications scientifiques ou techniques sur le Web
-- le format [Tufte Handouts](http://rmarkdown.rstudio.com/tufte_handout_format.html) qui permet de produire des documents PDF ou HTML dans un format similaire à celui utilisé par Edward Tufte pour certaines de ses publications
-- [rticles](https://github.com/rstudio/rticles), package qui propose des modèles LaTeX pour plusieurs revues scientifiques.
+-   le format [Distill](https://rstudio.github.io/distill/), adapté aux publications scientifiques ou techniques sur le Web
+-   le format [Tufte Handouts](http://rmarkdown.rstudio.com/tufte_handout_format.html) qui permet de produire des documents PDF ou HTML dans un format similaire à celui utilisé par Edward Tufte pour certaines de ses publications
+-   [rticles](https://github.com/rstudio/rticles), package qui propose des modèles LaTeX pour plusieurs revues scientifiques.
 
 Enfin, l'extension [rmdformats](https://github.com/juba/rmdformats) propose plusieurs modèles HTML particulièrement adaptés pour les documents longs.
 
@@ -503,6 +503,3 @@ Le livre *R for data science*, disponible en ligne, contient [un chapitre dédi�
 [Le site officiel de l'extension](http://rmarkdown.rstudio.com/) contient une documentation très complète, tant pour les débutants que pour les utilisateurs avancés.
 
 Enfin, l'aide de RStudio (menu *Help* puis *Cheatsheets*) donne accès à deux documents de synthèse : une "fiche de triche" synthétique (*R Markdown Cheat Sheet*) et un "guide de référence" plus complet (*R Markdown Reference Guide*).
-
-
-

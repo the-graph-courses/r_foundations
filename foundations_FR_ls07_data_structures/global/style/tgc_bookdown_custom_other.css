@@ -607,4 +607,9 @@ h1 > .header-section-number {
 /* ----------- END Custom headers from CRC template -------------  */ 
 
 
+/* ----------- TGC fix 2023-11-20 -------------  */ 
+
+pre>code.sourceCode>span {
+    padding-left: 0em;
+}
 

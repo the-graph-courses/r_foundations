@@ -67,18 +67,18 @@ Tout ce qui suit le symbole `#` (prononcé "dièse") sur une ligne donnée est u
 
 Puisqu'ils sont ignorés par l'ordinateur, les commentaires sont destinés aux *humains*. Ils vous aident, vous et les autres, à garder une trace de ce que fait votre code. Utilisez-les souvent ! Comme votre mère le dit toujours, "Tout excès nuit, sauf les commentaires R".
 
-::: r-pratique
+::: r-practice
 **Question 1**
 
 Vrai ou Faux : les deux morceaux de code ci-dessous sont des façons valables de commenter du code ?
 
 ```{r eval = F}
-# additionne deux nombres
+# Additionnez deux nombres
 2 + 2
 ```
 
 ```{r eval = F}
-2 + 2 # additionne deux nombres
+2 + 2 # Additionnez deux nombres
 ```
 
 **Remarque:** Toutes les réponses aux questions se trouvent à la fin de la leçon.
@@ -114,7 +114,7 @@ sqrt(100)  # racine carrée
 
 La commande de racine carrée affichée sur la dernière ligne est un bon exemple de *fonction* R, où `100` est l'*argument* de la fonction. Vous verrez bientôt d'autres fonctions.
 
-::: rappel
+::: reminder
 Nous espérons que vous vous souvenez du raccourci pour exécuter le code !
 
 Pour **exécuter une seule ligne de code**, placez votre curseur n'importe où sur cette ligne, puis appuyez sur `Commande` + `Entrée` sur macOS, ou `Contrôle` + `Entrée` sur Windows.
@@ -122,7 +122,7 @@ Pour **exécuter une seule ligne de code**, placez votre curseur n'importe où s
 Pour **exécuter plusieurs lignes**, faites glisser votre curseur pour surligner les lignes concernées, puis appuyez à nouveau sur `Commande`/`Contrôle` + `Entrée`.
 :::
 
-::: r-pratique
+::: r-practice
 **Question 2**
 
 Dans l'expression suivante, quel signe est évalué en premier par R, le moins ou la division ?
@@ -161,7 +161,7 @@ En attendant, vous pouvez demander à RStudio de vous aider à formater votre co
 
 En attendant, vous pouvez demander à RStudio de vous aider à structurer votre code. Pour ce faire, mettez en surbrillance n'importe quelle section de code que vous souhaitez restructurer et, dans le menu de RStudio, accédez à `Code > Reformat Code`, ou utilisez le raccourci `Maj` + `Commande/Contrôlee` + `A`.
 
-::: attention
+::: watch-out
 **Coincé sur le signe +**
 
 Si vous exécutez une ligne de code incomplète, R affichera un signe "+" pour indiquer qu'il attend que vous terminiez le code.
@@ -197,17 +197,17 @@ Lorsque vous exécutez du code comme nous l'avons fait ci-dessus, le résultat d
 2 + 2 # R imprime ce résultat, 4, mais ne le stocke pas
 ```
 
-Pour stocker une valeur pour une utilisation future, affectez-la à un *objet* à l'aide de l'*opérateur d'affectation**,*** `<-` :
+Pour stocker une valeur pour une utilisation future, attribuez-la à un *objet* à l'aide de l'*opérateur d'attribution**,*** `<-` :
 
 ```{r}
 mon_obj <- 2 + 2 # attribue le résultat de `2 + 2 ` à l'objet appelé `mon_obj`
 mon_obj # imprime mon_obj
 ```
 
-L'opérateur d'affectation, `<-` , est composé du signe 'inférieur à', `<` , et d'un signe moins, `-`. Vous l'utiliserez des milliers de fois au cours de votre vie R, alors ne le saisissez pas manuellement ! Utilisez plutôt le raccourci de RStudio, **`alt`** + **`-`** (**alt** ET **moins**) sous Windows ou **`option`** + **`-`** (**option** ET **moins**) sur macOS.
+L'opérateur d'attribution, `<-` , est composé du signe 'inférieur à', `<` , et d'un signe moins, `-`. Vous l'utiliserez des milliers de fois au cours de votre vie R, alors ne le saisissez pas manuellement ! Utilisez plutôt le raccourci de RStudio, **`alt`** + **`-`** (**alt** ET **moins**) sous Windows ou **`option`** + **`-`** (**option** ET **moins**) sur macOS.
 
-::: remarque
-Notez également que vous pouvez utiliser le signe *égal*, `=`, pour l'affectation.
+::: side-note
+Notez également que vous pouvez utiliser le signe *égal*, `=`, pour l'attribution.
 
 ```{r}
 mon_obj = 2 + 2
@@ -262,7 +262,7 @@ R effectue d'abord le calcul de `2 + 2`, puis stocke le résultat, 4, à l'inté
 
 ![](images/french_object_two_plus_two.png){width="223"}
 
-::: r-pratique
+::: r-practice
 **Question 3**
 
 Considérez le morceau de code ci-dessous :
@@ -280,13 +280,13 @@ B. numérique
 C. 6
 :::
 
-## Les trames de données sont aussi des objets
+## Les jeux de données sont aussi des objets
 
-Jusqu'à présent, vous avez travaillé avec des objets très simples. Vous pensez peut-être "Où sont les feuilles de calcul et les trames de données ? Pourquoi écrivons-nous `mon_obj <- 2 + 2` ? Est-ce un cours de mathématiques à l'école primaire ?!"
+Jusqu'à présent, vous avez travaillé avec des objets très simples. Vous pensez peut-être "Où sont les feuilles de calcul et les jeux de données ? Pourquoi écrivons-nous `mon_obj <- 2 + 2` ? Est-ce un cours de mathématiques à l'école primaire ?!"
 
 Soyez patient.
 
-Voyons maintenant un aperçu de cela. Saisissez le code ci-dessous pour télécharger une trame de données sur les cas d'Ebola que nous avons stocké sur Google Drive et placez-le dans l'objet `ebola_sierra_leone_data`.
+Voyons maintenant un aperçu de cela. Saisissez le code ci-dessous pour télécharger un jeu de données sur les cas d'Ebola que nous avons stocké sur Google Drive et placez-le dans l'objet `ebola_sierra_leone_data`.
 
 ```{r render = head_5_rows}
 ebola_sierra_leone_data <- read.csv("https://tinyurl.com/ebola-data-sample")
@@ -297,23 +297,23 @@ Ces données contiennent un échantillon d'informations sur les patients de l'é
 
 ------------------------------------------------------------------------
 
-Étant donné que vous pouvez stocker des trames de données en tant qu'objets, il est très facile de travailler avec plusieurs trames de données en même temps.
+Étant donné que vous pouvez stocker des jeux de données en tant qu'objets, il est très facile de travailler avec plusieurs jeux de données en même temps.
 
-Ci-dessous, nous importons et visualisons une autre trame de données à partir du Web :
+Ci-dessous, nous importons et visualisons un autre jeu de données à partir du Web :
 
 ```{r eval = F}
 diabete_chine <- read.csv("https://tinyurl.com/diabetes-china")
 ```
 
-Étant donné que la trame de données ci-dessus est assez volumineux, il peut être utile de le consulter dans le visualiseur de données :
+Étant donné que le jeu de données ci-dessus est assez volumineux, il peut être utile de le consulter dans le visualiseur de données :
 
 ```{r eval = FALSE}
 View(diabete_chine)
 ```
 
-Notez que les deux trames de données apparaissent maintenant dans votre onglet *Environment*.
+Notez que les deux jeux de données apparaissent maintenant dans votre onglet *Environment*.
 
-::: remarque
+::: side-note
 Plutôt que de lire les données à partir d'un lecteur Internet comme nous l'avons fait ci-dessus, il est plus probable que vous ayez les données sur votre ordinateur et que vous souhaitiez les lire dans R à partir de là. Nous aborderons ce point dans une prochaine leçon.
 
 Plus tard dans le cours, nous vous montrerons également comment stocker et lire des données à partir d'un service Web comme Google Drive, ce qui est pratique pour faciliter la portabilité.
@@ -382,7 +382,7 @@ ma_somme <- mon_nombre + mon_nombre
 
 Quelle devrait être la valeur de `ma_somme` ? Essayez d'abord de deviner, puis vérifiez.
 
-::: remarque
+::: side-note
 Pour vérifier la valeur d'un objet, tel que `ma_somme`, vous pouvez saisir et exécuter uniquement le code `ma_somme` dans la console ou l'éditeur. Alternativement, vous pouvez simplement mettre en surbrillance la valeur `ma_somme` dans le code existant et appuyer sur `Commande/Contrôlee` + `Entrée`.
 :::
 
@@ -400,7 +400,7 @@ table(ebola_data$sex)
 
 Le symbole du dollar, `$`, ci-dessus nous a permis de créer un sous-ensemble dans une colonne spécifique.
 
-::: r-pratique
+::: r-practice
 **Question 4**
 
 a.  Considérez le code ci-dessous. Quelle est la valeur de l'objet `reponse` ?
@@ -458,7 +458,7 @@ Lorsque vous commencez à apprendre R, gérer les erreurs peut être frustrant. 
 
 Essayez de chercher sur Google tous les messages d'erreur que vous obtenez et parcourez les premiers résultats. Cela vous mènera à des forums (par exemple stackoverflow.com) où d'autres apprenants de R se sont plaints de la même erreur. Vous y trouverez des explications et des solutions à vos problèmes.
 
-::: r-pratique
+::: r-practice
 **Question 5**
 
 a.  Le code ci-dessous renvoie une erreur. Pourquoi?
@@ -536,7 +536,7 @@ Tous les noms ci-dessus sont des noms d'objet R valides. Par exemple, saisissez 
 
 Mais en général, vous devriez éviter d'utiliser des accents graves pour remédier aux mauvais noms d'objets. Écrivez simplement les noms propres.
 
-::: r-pratique
+::: r-practice
 **Question 6**
 
 Dans le morceau de code ci-dessous, nous essayons de prendre les 20 premières lignes du tableau `ebola_data`. Toutes ces lignes sauf une comportent une erreur. Quelle ligne fonctionnera correctement ?
@@ -574,7 +574,7 @@ nom_de_la_fonction(argument1 = "valeur", argument2 = "valeur")
 
 Démontrons ceci avec la fonction `head()`, qui renvoie les premiers éléments d'un objet.
 
-Pour retourner les trois premières lignes de la trame de données Ebola, exécutez :
+Pour retourner les trois premières lignes de le jeu de données Ebola, exécutez :
 
 ```{r}
 head(x = ebola_data, n = 3)
@@ -627,7 +627,7 @@ Pour voir les arguments d'une fonction, appuyez sur la touche **Tab** lorsque vo
 ::: r-practice
 **Question 7**
 
-Dans les lignes de code ci-dessous, nous essayons de prendre les 6 premières lignes de la trame de données `women` (qui est intégré à R). Quelle ligne n'est pas valide ?
+Dans les lignes de code ci-dessous, nous essayons de prendre les 6 premières lignes de le jeu de données `women` (qui est intégré à R). Quelle ligne n'est pas valide ?
 
 ```{r eval = FALSE}
 head(women)
@@ -665,7 +665,7 @@ prenom <- "Luigi"
 paste("Mon prenom est", prenom, "et mon nom est", nom)
 ```
 
-::: Astuce
+::: pro-tip
 Les fonctions comme `paste()` peuvent prendre plusieurs valeurs car elles ont un argument spécial, des points de suspension : `…` Si vous consultez le fichier d'aide de la fonction paste, vous verrez ceci :
 
 ![](images/paste_ellipsis.jpg){width="432"}
@@ -704,7 +704,7 @@ paste(mon_nom_minuscule, "est mon nom")
 
 L'imbrication des fonctions sera bientôt très utile.
 
-::: r-pratique
+::: r-practice
 **Question 8**
 
 Les morceaux de code ci-dessous sont tous des exemples d'imbrication de fonctions. Une des lignes contient une erreur. De quelle ligne s'agit-il et quelle est l'erreur ?
@@ -746,14 +746,14 @@ Notez que vous n'avez besoin d'installer un package qu'une seule fois, mais vous
 
 Le package facilite la construction du "Tableau 1", c'est-à-dire un tableau avec les caractéristiques de l'échantillon d'étude que l'on trouve couramment dans les articles de recherche biomédicale.
 
-Le cas d'utilisation le plus simple consiste à résumer la trame de données. Il suffit d'introduire la base de données dans l'argument "data" de la fonction principale "CreateTableOne()".
+Le cas d'utilisation le plus simple consiste à résumer le jeu de données. Il suffit d'introduire la base de données dans l'argument "data" de la fonction principale "CreateTableOne()".
 
 ```{r}
 CreateTableOne(data = ebola_data)
 
 ```
 
-Vous pouvez voir qu'il y a 200 patients dans cette trame de données, l'âge moyen est de 33 ans et 38% de l'échantillon de l'échantillon est de sexe masculin, entre autres détails.
+Vous pouvez voir qu'il y a 200 patients dans ce jeu de données, l'âge moyen est de 33 ans et 38% de l'échantillon de l'échantillon est de sexe masculin, entre autres détails.
 
 Très cool! (Un problème est que le package suppose que les variables de date sont nominales; à cause de cela, le tableau de sortie est beaucoup trop long!)
 
@@ -761,7 +761,7 @@ Le but de cette démonstration de {tableone} est de vous montrer qu'il y a beauc
 
 Vous pouvez rechercher sur Google "Cool R Packages" et parcourir les réponses si vous souhaitez en savoir plus sur d'autres packages R.
 
-::: remarque
+::: side-note
 Vous avez peut-être remarqué que nous mettons les noms de packages entre accolades, par ex. {tableone}. Il s'agit simplement d'une convention de style entre les utilisateurs/enseignants de R. Les accolades ne *signifient* rien.
 :::
 
@@ -800,7 +800,7 @@ library(tableone)
 CreateTableOne(data = ebola_data)
 ```
 
-::: r-pratique
+::: r-practice
 **Question 9**
 
 Considérez le code ci-dessous :
@@ -868,7 +868,7 @@ La première ligne installe {pacman} s'il n'est pas encore installé. La deuxiè
 
 Ouf! J'espère que votre tête est encore intacte.
 
-::: r-pratique
+::: r-practice
 **Question 10**
 
 Au début d'un script R, nous aimerions installer et charger le package appelé {janitor}. Parmi les morceaux de code suivants, quels sont ceux que nous vous recommandons d'inclure dans votre script ?

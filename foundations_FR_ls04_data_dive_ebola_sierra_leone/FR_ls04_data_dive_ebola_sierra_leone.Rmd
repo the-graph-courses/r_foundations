@@ -49,9 +49,9 @@ ebola_sierra_leone <- read_csv(here("data/ebola_sierra_leone.csv"))
 
 6. Vous pouvez inspecter une variable nominale :
 
-     - avec les fonctions récapitulatives `table()` et `janitor::tabyl()` ;
+     - avec la fonction `janitor::tabyl()` ;
 
-     - avec les fonctions graphiques `barplot()` et `pie()`.
+     - avec le code ggplot2 généré par esquisse.
 
 # Introduction
 
@@ -73,13 +73,13 @@ Vous allez importer et explorer ce jeu de données, puis utiliser R pour répond
 
 # Configuration du script
 
-Tout d'abord, ouvrez un nouveau script dans RStudio avec `File > New File > R Script`. (Si vous êtes sur RStudio, vous pouvez ouvrir n'importe lequel de vos projets créés précédemment.)
+Tout d'abord, ouvrez un nouveau script dans RStudio avec `File > New File > R Script`. (Si vous êtes sur RStudio Cloud, vous pouvez ouvrir n'importe lequel de vos projets créés précédemment.)
 
 ![](images/new_r_script.jpg){width="481"}
 
-Ensuite, enregistrez le script avec `File> Save as` ou appuyez sur `Commande`/`Contrôle` + `S` pour afficher la boîte de dialogue Enregistrer le fichier. Enregistrez le fichier sous le nom "ebola_analysis" ou quelque chose de similaire
+Ensuite, enregistrez le script avec `File> Save as` ou appuyez sur `Commande`/`Contrôle` + `S`. Enregistrez le fichier sous le nom "ebola_analysis" ou quelque chose de similaire.
 
-::: remarque
+::: side-note
 **Videz votre environnement au début de l'analyse**
 
 Lorsque vous démarrez une nouvelle analyse, votre environnement R devrait normalement être vide. Vérifiez cela en ouvrant l'onglet *Environment* ; il devrait dire "Environment is empty". Si au contraire, il affiche des objets précédemment chargés, il est recommandé de redémarrer R en allant dans l'option de menu `Session > Restart R`
@@ -87,7 +87,7 @@ Lorsque vous démarrez une nouvelle analyse, votre environnement R devrait norma
 
 ## En-tête
 
-Ajoutez un titre, un nom et une date au début du script, sous forme de commentaires de code. Il s'agit généralement d'une bonne pratique pour l'écriture de scripts R, car cela vous aide à vous donner, à vous et à vos collaborateurs, le contexte de votre script. Votre en-tête peut ressembler à ceci :
+Ajoutez un titre, un nom et une date au début du script, sous forme de commentaires de code. Il s'agit généralement d'une bonne pratique pour l'écriture de scripts R: 
 
 ```{r eval = F}
 # Analyse Ebola Sierra Leone
@@ -112,8 +112,8 @@ pacman::p_load(
 )
 ```
 
-::: rappel
-N'oubliez pas que le *signifiant complet* d'une fonction inclut à la fois le nom du package et le nom de la fonction, `package::function()`. Ce signifiant complet est pratique si vous souhaitez utiliser une fonction avant d'avoir chargé son package source. C'est le cas dans le morceau de code ci-dessus : nous voulons utiliser `p_load()` de {pacman} sans charger formellement le package {pacman}, nous saisissons donc `pacman::p_load()`
+::: reminder
+N'oubliez pas que le *signifiant complet* d'une fonction inclut à la fois le nom du package et le nom de la fonction, `package::function()`. Ce signifiant complet est pratique si vous souhaitez utiliser une fonction avant d'avoir chargé son package source. C'est le cas dans le code ci-dessus : nous voulons utiliser `p_load()` de {pacman} sans charger formellement le package {pacman}, nous saisissons donc `pacman::p_load()`
 
 Nous pourrions aussi d'abord charger {pacman} avant d'utiliser la fonction p_load :
 
@@ -129,7 +129,7 @@ p_load(tidyverse) # utilise `p_load` de {pacman} pour charger d'autres packages
 
 Maintenant que les packages nécessaires sont chargés, vous devez importer le jeu de données.
 
-::: remarque
+::: side-note
 **À propos du jeu de données Ebola**
 
 Les données sur lesquelles vous allez travailler contiennent un échantillon d'informations sur les patients de l'épidémie d'Ebola de 2014-2016 en Sierra Leone. Elles proviennent d'un document de recherche qui a analysé la dynamique de transmission de cette épidémie. Les variables clés incluent le `statut` d'un cas, si le cas a été `confirmé` ou `suspecté` ; la `date d'apparition`, lorsque des symptômes de type Ebola sont apparus chez un patient ; et la `date_de_l'échantillon`, date à laquelle l'échantillon de test a été prélevé. Pour en savoir plus sur ces données, consultez la publication source ici : [bit.ly/ebola-data-source](https://bit.ly/ebola-data-source){target="_blank"}. Ou recherchez le DOI suivant sur DOI.org : 10.1073/pnas.1518587113.
@@ -144,7 +144,7 @@ Vous pouvez laisser le jeu de données dans votre dossier de téléchargements o
 ------------------------------------------------------------------------
 
 ::: rstudio-cloud
-REMARQUE : Si vous utilisez RStudio Cloud, vous devez télécharger votre jeu de données sur le cloud. Faites cela dans l'onglet "Files" en cliquant sur le bouton "Upload".
+REMARQUE : Si vous utilisez RStudio Cloud, vous devez importer votre jeu de données sur le cloud. Faites cela dans l'onglet "Files" en cliquant sur le bouton "Upload".
 
 ![](images/rstudio_cloud_upload_button.png){width="500"}
 :::
@@ -157,7 +157,9 @@ Parcourez les fichiers de l'ordinateur et naviguez jusqu'au jeu de données tél
 
 ![](images/ebola_dat_import_dialog.jpg)
 
-Laissez tous les paramètres d'importation aux valeurs par défaut ; cliquez simplement sur "Import" en bas ; cela devrait charger le jeu de données dans R. Vous pouvez vous en rendre compte en regardant votre volet d'environnement, qui devrait maintenant comporter un objet appelé "ebola_sierra_leone" ou quelque chose de similaire :
+Laissez tous les paramètres d'importation aux valeurs par défaut ; cliquez simplement sur "Import" en bas ; cela devrait charger le jeu de données dans R. 
+
+Vous devez voir dans le volet d'environnement qu'un objet appelé « ebola_sierra_leone » ou quelque chose de similaire a été importé :
 
 ![](images/environment_with_ebola_data.png){width="507"}
 
@@ -205,11 +207,11 @@ ebola_sierra_leone <- read_csv("~/Téléchargements/ebola_sierra_leone.csv")
 
 Maintenant que le code d'importation des données se trouve dans votre script R, vous pouvez facilement réexécuter ce script à tout moment pour réimporter le jeu de données ; il ne sera pas nécessaire de refaire la procédure manuelle de pointer-cliquer pour l'importation des données.
 
-Essayez de redémarrer R et de réexécuter le script maintenant. Enregistrez votre script avec `Contrôle/Commande` + `s` , puis *redémarrez* R avec le menu RStudio, à `Session > Restart R`. Sur RStudio Cloud, l'option de menu ressemble à ceci :
+Essayez de redémarrer R et de réexécuter le script maintenant. Enregistrez votre script avec `Contrôle/Commande` + `s` , puis *redémarrez* R avec le menu RStudio, à `Session > Restart R`. L'option de menu ressemble à ceci :
 
 ![](images/restart_r_session.png){width="204"}
 
-Si le redémarrage réussit, votre console devrait afficher ce message :
+Si le redémarrage réussit, votre console devrait afficher le message "Restarting R Session" :
 
 ![](images/restarting_r_session.png){width="485"}
 
@@ -221,17 +223,18 @@ Pour relancer votre script, utilisez `Commande/Contrôle` + `a` pour surligner t
 
 Si cela a fonctionné, félicitations ; vous avez les prémices de votre premier script d'analyse "reproductible" !
 
-::: vocabulaire
+::: vocab
 **Que signifie "reproductible" ?**
 
 Lorsque vous faites des choses avec du code plutôt qu'en pointant et en cliquant, il est facile pour n'importe qui de réexécuter, ou de *reproduire* ces étapes, en réexécutant simplement votre script.
 
 Bien que vous puissiez utiliser l'interface graphique de RStudio pour pointer et cliquer tout au long du processus d'importation de données, vous devez toujours copier le code pertinent dans votre script afin que votre script reste un enregistrement reproductible de toutes vos étapes d'analyse.
 
-Bien sûr, votre script jusqu'à présent n'est pas encore *entièrement* reproductible, car le chemin dd'accès au jeu de données (celui qui ressemble à ceci : "...intro-a-lanalyse-de-donnees-avec-r/ch01_pour_commencer/data. .."") est spécifique à votre ordinateur uniquement. Plus tard, nous verrons comment utiliser des chemins d'accès relatifs, afin que le code d'importation de données puisse fonctionner sur n'importe quel ordinateur.
+Bien sûr, votre script jusqu'à présent n'est pas encore *entièrement* reproductible, car le chemin d'accès au jeu de données est spécifique à votre ordinateur uniquement. Plus tard, nous verrons comment utiliser des chemins d'accès relatifs, afin que le code d'importation de données puisse fonctionner sur n'importe quel ordinateur.
+
 :::
 
-::: attention
+::: watch-out
 Si votre environnement n'était pas vide après le redémarrage de R, cela signifie que vous avez sauté une étape dans une leçon précédente. Faites ceci maintenant :
 
 - Dans le menu de RStudio, allez à `Tools > Global Options` pour afficher la boîte de dialogue des options de RStudio.
@@ -240,12 +243,13 @@ Si votre environnement n'était pas vide après le redémarrage de R, cela signi
 
 - Pour l'option "save your workspace to .RData on exit", réglez-la sur "Never".
 
-     ![](images/dont_restore_rdata.png){width="542"}
+![](images/dont_restore_rdata.png){width="542"}
+
 :::
 
 # Exploration rapide des données
 
-Passons maintenant en revue certaines étapes de base de l'exploration des données, en jetant un coup d'œil général sur le jeu de données. Vous devez placer cette section sous un titre tel que "Explorer les données" dans votre script.
+Passons maintenant à l'exploration des données. Nous verrons une série de fonctions qui peuvent être utilisées pour obtenir une vue d'ensemble de vos données.
 
 Pour afficher les 6 lignes supérieures et inférieures du jeu de données, vous pouvez utiliser les fonctions `head()` et `tail()` :
 
@@ -277,7 +281,7 @@ ncol(ebola_sierra_leone) # nombre de colonnes
 dim(ebola_sierra_leone) # nombre de lignes et de colonnes
 ```
 
-::: rappel
+::: reminder
 Si vous n'êtes pas sûr de ce que fait une fonction, n'oubliez pas que vous pouvez obtenir de l'aide sur la fonction avec le symbole du point d'interrogation. Par exemple, pour obtenir de l'aide sur la fonction `ncol()`, exécutez :
 
 ```{r}
@@ -329,7 +333,7 @@ show_plot(resume_cat)
 
 Vous obtenez une figure magnifique montrant la distribution de toutes les variables nominales et de date !
 
-::: remarque
+::: side-note
 Vous pouvez également exécuter :
 
 ```{r}
@@ -337,7 +341,7 @@ show_plot(inspect_cat(ebola_sierra_leone))
 ```
 :::
 
-À partir de ce graphique, vous pouvez rapidement dire que la plupart des cas se trouvent à Kailahun et qu'il y a plus de cas chez les femmes que chez les hommes ("F" signifie "femelle").
+À partir de ce graphique, vous pouvez rapidement voir que la plupart des cas se trouvent à Kailahun et qu'il y a plus de cas chez les femmes que chez les hommes ("F" signifie "femelle").
 
 Un problème est que dans ce graphique, les plus petites catégories ne sont pas étiquetées. Ainsi, par exemple, nous ne savons pas quelle valeur est représentée par la section blanche pour "statut" en bas à droite. Pour voir les étiquettes sur ces catégories plus petites, vous pouvez transformer cela en un graphique interactif avec la fonction `ggplotly()` du package {plotly}.
 
@@ -350,7 +354,7 @@ Merveilleux! Vous pouvez maintenant survoler chacune des barres pour voir la pro
 
 ![](images/plotly_inspect_cat.png){width="656"}
 
-::: rappel
+::: reminder
 La flèche d'affectation, `<-`, peut être écrite avec le raccourci RStudio **`alt`** + **`-`** (**alt** ET **moins**) sous Windows ou **` option`** + **`-`** (**option** ET **moins**) sur macOS.
 :::
 
@@ -364,9 +368,7 @@ resume_num_graph <- show_plot(resume_num)
 ggplotly(resume_num_graph)
 ```
 
-Cela vous donne un aperçu des colonnes numériques, `age` et `id`. (Bien sûr, la distribution de la variable `id` n'est pas significative.)
-
-Vous pouvez constater que les personnes âgées de 35 à 40 ans (point médian 37,5) constituent le groupe d'âge le plus important, représentant 13,8 % (0,1377...) des cas dans le jeu de données.
+Cela vous donne un aperçu des colonnes numériques `age` et `id`. Bien entendu, la distribution de la variable id n'est pas véritablement numérique, mais représente plutôt des identifiants uniques. Nous verrons plus tard comment changer le type de données des colonnes dans R.
 
 # Analyse d'une seule variable numérique
 
@@ -388,7 +390,7 @@ Pour extraire une seule variable/colonne d'un jeu de données, utilisez le signe
 ebola_sierra_leone$age # extrait la colonne 'age' dans le jeu de données
 ```
 
-::: vocabulaire
+::: vocab
 Cette liste de valeurs est appelée un *vecteur* dans R. Un vecteur est une sorte de structure de données dont les éléments dont d'un seul *type*. Dans ce cas, le type est "numérique". Nous vous présenterons formellement les vecteurs et autres structures de données dans un prochain chapitre. Dans cette leçon, vous pouvez considérer que "vecteur" et "variable" sont synonymes.
 :::
 
@@ -492,7 +494,7 @@ ggplot(ebola_sierra_leone) +
 
 En copiant le code généré dans votre script, vous vous assurez que la visualisation de données que vous avez créée est entièrement reproductible.
 
-::: astuce
+::: pro-tip
 {esquisse} ne peut créer que des graphiques assez simples, donc lorsque vous souhaitez créer des graphiques hautement personnalisés ou complexes, vous devrez apprendre à écrire le code {ggplot} manuellement. Ce sera l'objet d'un cours ultérieur.
 :::
 
@@ -545,7 +547,7 @@ tabyl(ebola_sierra_leone, district)
 
 Comme vous pouvez le voir, `tabyl()` vous donne à la fois les nombres et les pourcentages de chaque valeur. Il possède également d'autres fonctionnalités intéressantes que vous verrez plus tard.
 
-::: astuce
+::: pro-tip
 Vous pouvez aussi facilement faire des tableaux croisés avec `tabyl()`. Il suffit d'ajouter des variables supplémentaires séparées par une virgule. Par exemple, pour créer un tableau croisé par quartier et par sexe, exécutez :
 
 ```{r}
@@ -565,18 +567,15 @@ esquisser(ebola_sierra_leone)
 
 Faites ensuite glisser la variable `district` vers la zone de l'axe X :
 
-![](images/00.33.04.jpg)
-
 Vous devriez obtenir un graphique à barres indiquant le nombre d'individus dans les districts. Copiez le code généré et collez-le dans votre script.
 
 # Réponses aux questions sur l'épidémie
 
-Avec les fonctions que vous venez d'apprendre, vous disposez des outils nécessaires pour répondre aux questions sur l'épidémie d'Ebola qui ont été énumérées en haut. Essayez voir! Essayez de répondre à ces questions par vous-même, puis regardez les solutions ci-dessous.
+Avec les fonctions que vous venez d'apprendre, vous disposez des outils nécessaires pour répondre aux questions sur l'épidémie d'Ebola qui ont été énumérées en haut. Essayez-le vous-même, puis regardez les solutions.
 
-- **Quand le premier cas a-t-il été signalé ? (Indice : regardez la date de l'échantillon)**
-- **À fin du mois de juin 2014, quelle tranche d'âge de 10 ans avait eu le plus de cas ?**
+- **Quand le premier cas a-t-il été signalé ? (regardez la date de l'échantillon)**
 - **Quel était l'âge médian des personnes touchées ?**
-- ** Y avait-il eu plus de cas chez les hommes ou chez les femmes ? **
+- **Y avait-il eu plus de cas chez les hommes ou chez les femmes ?**
 - **Quel est le district qui a enregistré le plus grand nombre de cas signalés ?**
 - **À la fin du mois de juin 2014, l'épidémie était-elle en croissance ou en regression ?**
 
@@ -633,15 +632,7 @@ ggplot(ebola_sierra_leone) +
   theme_minimal()
 ```
 
-Super! Mais on peut se demander si l'épidémie augmentait ou reculait fin juin 2014 ; une tendance précise n'est pas vraiment claire!
-
-# Vous n'en avez pas eu assez ?
-
-Si vous souhaitez mettre en pratique certaines des méthodes et fonctions que vous avez apprises sur un jeu de données similaire, essayez de télécharger les données stockées sur cette page : <https://bit.ly/view-yaounde-covid-data>
-
-Ce jeu de données se présente sous la forme d'une feuille de calcul Excel, donc lorsque vous importez le jeu de données avec RStudio, vous devez utiliser l'option "From Excel" (File \> Import Dataset \> From Excel).
-
-Ce jeu de données contient les résultats d'une enquête sérologique COVID-19 menée à Yaoundé, au Cameroun, à la fin de l'année 2020. L'enquête a permis d'estimer le nombre de personnes infectées par le COVID-19 dans la région, en testant les anticorps IgG et IgM. le jeu de données complet peut être obtenu ici : [go.nature.com/3R866wx](https://go.nature.com/3R866wx){target="_blank"}
+Super ! Mais il est difficile de dire si l'épidémie augmentait ou reculait fin juin 2014 ; une tendance précise n'est pas vraiment évidente !
 
 # Conclusion
 

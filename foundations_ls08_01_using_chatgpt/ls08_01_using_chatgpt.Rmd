@@ -51,9 +51,8 @@ Both models have their advantages and use cases. GPT-3.5 is suitable for simple 
 
 Bing's AI chat service also uses GPT-4 under the hood (last checked in September 2023), so you can go to Bing if you want GPT-4 access without paying. The Bing interface is a bit clunky for data analysis tasks though, so if you can afford to pay for GPT-4, we highly recommend it.
 
-# Use Cases
 
-## 1. Explain Unfamiliar Code
+# 1. Explain Unfamiliar Code
 
 ChatGPT can explain unfamiliar code. For instance, if you encounter the following code:
 
@@ -82,7 +81,7 @@ So, in summary, the code takes the `trees` data frame, selects only the "Height"
 :::
 
 
-## 2. Debug Simple Errors
+# 2. Debug Simple Errors
 
 ChatGPT can assist in debugging straightforward errors. You can ask ChatGPT, "Please help me understand why the code is not working," then paste in both your code and the error message.
 
@@ -124,7 +123,7 @@ With this corrected code, it should work as expected and summarize the `data_sub
 
 :::
 
-## 3. Add Code Comments
+# 3. Add Code Comments
 
 ChatGPT can also assist in adding comments to your code. For instance, you can say, "Add comments to the following code," then paste in your code.
 
@@ -144,7 +143,8 @@ ChatGPT3.5 response:
 Certainly! Here's the code with comments added to explain each step:
 
 ```{r eval = F}
-# Select the 'Height' column from the 'trees' dataset and create a new dataset 'data_subset_2'
+# Select the 'Height' column from the 'trees' dataset 
+# and create a new dataset 'data_subset_2'
 data_subset_2 <- 
   trees %>%
   select(Height) %>%
@@ -152,7 +152,8 @@ data_subset_2 <-
 # Filter 'data_subset_2' to retain only rows where 'Height' is greater than 80
   filter(Height > 80)
 
-# Display a summary of 'data_subset_2', including statistics like mean, median, and quartiles
+# Display a summary of 'data_subset_2'
+# including statistics like mean, median, and quartiles
 summary(data_subset_2)
 ```
 
@@ -160,7 +161,7 @@ These comments provide a clear explanation of what each line of code does, makin
 
 :::
 
-## 4. Reformat Code
+# 4. Reformat Code
 
 ChatGPT can help in reformatting code. For example, consider the following code:
 
@@ -187,7 +188,7 @@ I've added line breaks and indentation to make the code more readable and visual
 
 :::
 
-## 5. Make Plots
+# 5. Make Plots
 
 ChatGPT can assist in creating plots with ggplot2. For instance, you might ask:
 
@@ -259,8 +260,10 @@ mean_height <- mean(trees$Height)
 
 # Add mean points
 scatter_plot <- scatter_plot +
-  geom_point(data = data.frame(Girth = mean_girth, Height = mean_height), color = "red", size = 3) +
-  annotate("text", x = mean_girth, y = mean_height, label = "Mean", color = "red", vjust = -1)
+  geom_point(data = data.frame(Girth = mean_girth, Height = mean_height), 
+             color = "red", size = 3) +
+  annotate("text", x = mean_girth, y = mean_height, label = "Mean", 
+           color = "red", vjust = -1)
 
 # Print the scatter plot
 print(scatter_plot)
@@ -310,7 +313,7 @@ p
 
 With GPT-4, you get exactly what you want, including the equation in the caption at the bottom right of the plot.
 
-## 6. Simple Data Wrangling
+# 6. Simple Data Wrangling
 
 ChatGPT can help with simple data wrangling tasks. For instance:
 
@@ -341,7 +344,7 @@ print(result)
 
 :::
 
-## 7. Translate Language
+# 7. Translate Language
 
 ChatGPT can help translate text in your tutorial or documentation from one language to another, while preserving the code. If you use other translators, they often translate your code as well, which is undesirable.
 
@@ -378,7 +381,7 @@ library(dplyr)
 
 You can verify the validity of this translation by translating it back into English in a different session.
 
-## 8. Translate Programming Languages
+# 8. Translate Programming Languages
 
 ChatGPT can help translate between different programming languages. For example, you can say:
 
@@ -396,7 +399,8 @@ In R, you can achieve the same recoding of the "age" variable into an "agegroup"
 
 ```{r eval = F}
 # Assuming you have a dataframe called "data" with an "age" variable
-data$agegroup <- cut(data$age, breaks = c(18, 35, 50), labels = c(1, 2), include.lowest = TRUE)
+data$agegroup <- cut(data$age, breaks = c(18, 35, 50), labels = c(1, 2), 
+                     include.lowest = TRUE)
 ```
 
 In this code:
@@ -411,7 +415,7 @@ This code will create a new "agegroup" variable in your dataframe, similar to wh
 
 :::
 
-## 9. Fluid Find and Replace
+# 9. Fluid Find and Replace
 
 Lastly, ChatGPT can help you refactor your code in situations where a simple find and replace with your IDE would be time-consuming. For example, if "Afghanistan" is written in three different ways (with a capital "A", in lowercase letters, and as a country code inthe title, "AF"), you could replace all instances with "Ghana". 
 
@@ -433,15 +437,25 @@ afghanistan_population <- data.frame(
   population = c(afghanistan_2000, afghanistan_2010)
 )
 
-percent_change <- ((afghanistan_2010 - afghanistan_2000) / afghanistan_2000) * 100
+percent_change <-
+  ((afghanistan_2010 - afghanistan_2000) / afghanistan_2000) * 100
 
-ggplot(afghanistan_population, aes(x = factor(year), y = population, fill = factor(year))) +
+ggplot(afghanistan_population,
+       aes(
+         x = factor(year),
+         y = population,
+         fill = factor(year)
+       )) +
   geom_bar(stat = "identity") +
   labs(
     x = "Year",
     y = "Population",
     fill = "Year",
-    title = paste0("Change in Population in Afghanistan (AF) from 2000 to 2010 (", round(percent_change, 2), "%)")
+    title = paste0(
+      "Change in Population in Afghanistan (AF) from 2000 to 2010 (",
+      round(percent_change, 2),
+      "%)"
+    )
   ) +
   theme_classic()
 ```
@@ -466,13 +480,19 @@ ghana_population <- data.frame(
 
 percent_change <- ((ghana_2010 - ghana_2000) / ghana_2000) * 100
 
-ggplot(ghana_population, aes(x = factor(year), y = population, fill = factor(year))) +
+ggplot(ghana_population, aes(
+  x = factor(year),
+  y = population,
+  fill = factor(year)
+)) +
   geom_bar(stat = "identity") +
   labs(
     x = "Year",
     y = "Population",
     fill = "Year",
-    title = paste0("Change in Population in Ghana (GH) from 2000 to 2010 (", round(percent_change, 2), "%)")
+    title = paste0("Change in Population in Ghana (GH) from 2000 to 2010 (",
+                   round(percent_change, 2),
+                   "%)")
   ) +
   theme_classic()
 ```
@@ -481,7 +501,7 @@ This refactored code now refers to "Ghana" instead of "Afghanistan".
 
 :::
 
-## Limitations of ChatGPT
+# Limitations of ChatGPT
 
 While ChatGPT is a powerful tool for data analysts, it has some limitations:
 

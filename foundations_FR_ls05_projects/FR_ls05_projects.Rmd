@@ -14,7 +14,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-
 ```{r, include = FALSE, warning = FALSE, message = FALSE}
 # Charger les packages
 if(!require(pacman)) install.packages("pacman")
@@ -34,13 +33,13 @@ ebola_sierra_leone <- read_csv(here("data/ebola_sierra_leone.csv"))
 
 ## Objectifs d'apprentissage
 
-1. Vous pouvez configurer un projet RStudio et créer des sous-répertoires pour les données d'entrée, les scripts et les résultats analytiques.
+1.  Vous pouvez configurer un projet RStudio et créer des sous-répertoires pour les données d'entrée, les scripts et les résultats analytiques.
 
-2. Vous pouvez importer et exporter des données dans un projet RStudio.
+2.  Vous pouvez importer et exporter des données dans un projet RStudio.
 
-3. Vous comprenez la différence entre les chemins de fichiers relatifs et absolus.
+3.  Vous comprenez la différence entre les chemins de fichiers relatifs et absolus.
 
-4. Vous reconnaissez la valeur des Projets pour organiser et partager vos analyses.
+4.  Vous reconnaissez la valeur des Projets pour organiser et partager vos analyses.
 
 ## Introduction
 
@@ -48,7 +47,7 @@ Précédemment, vous avez parcouru certaines des étapes essentielles de l'analy
 
 Les analystes de données expérimentés conservent tous les fichiers associés à une analyse spécifique --- données d'entrée, scripts R et résultats analytiques --- ensemble dans un seul dossier. Ces dossiers sont appelés *projets* (p minuscule)*,* et RStudio les prend en charge via RStudio *Projets* (P majuscule)**.**
 
-Dans cette leçon, vous apprendrez à utiliser ces projets RStudio pour organiser votre analyse de données de manière cohérente et améliorer la reproductibilité de votre travail. Vous répliquerez une partie de l'analyse que vous avez effectuée lors de la dernière leçon de d'exploration des données, mais dans le contexte d'un projet RStudio.
+Dans cette leçon, vous apprendrez à utiliser ces projets RStudio pour organiser votre analyse de données de manière cohérente et améliorer la reproductibilité de votre travail. Vous répliquerez une partie de l'analyse que vous avez effectuée lors de la dernière leçon d'exploration des données, mais dans le contexte d'un projet RStudio.
 
 Allons-y.
 
@@ -72,15 +71,15 @@ Le projet RStudio que vous venez de créer n'est qu'un dossier sur un ordinateur
 
 ![](images/rstudio_project_files_pane.png){width="459"}
 
-::: point-clé
+::: key-point
 Le fichier .RProj est ce qui transforme un dossier ordinaire de l'ordinateur en un "Projet RStudio".
 :::
 
 ### Sur un ordinateur local
 
-Si vous êtes sur un ordinateur local, ouvrez RStudio, puis dans le menu RStudio, allez dans "File > New Project". Vos options peuvent être légèrement différentes des captures d'écran ci-dessous en fonction de votre système d'exploitation.
+Si vous êtes sur un ordinateur local, ouvrez RStudio, puis dans le menu RStudio, allez dans "File \> New Project". Vos options peuvent être légèrement différentes des captures d'écran ci-dessous en fonction de votre système d'exploitation.
 
-![](images/nouveau_projet.png){width="250"}
+![](images/new_project.png){width="250"}
 
 Choisissez "New directory"
 
@@ -98,7 +97,7 @@ Le projet RStudio que vous avez créé n'est qu'un dossier contenant un fichier 
 
 ![](images/rstudio_project_files_pane.png){width="366"}
 
-::: point-clé
+::: key-point
 **Cliquez sur le fichier .Rproj pour ouvrir votre projet**
 
 Le fichier .RProj est ce qui transforme un dossier ordinaire de l'ordinateur en un "Projet RStudio".
@@ -122,15 +121,15 @@ Notez également qu'il y a un en-tête en haut à droite de la fenêtre RStudio 
 
 Les projets d'analyse de données comportent généralement au moins trois sous-dossiers : un pour les données, un autre pour les scripts et un troisième pour les résultats, comme indiqué ci-dessous :
 
-![](images/rstudio_project_structure.png){width="305"}
+![](images/rstudio_project_structure_fr.png){width="305"}
 
 Regardons les sous-dossiers un par un :
 
-- **data:** Il contient les fichiers de données source (brutes) que vous utiliserez dans l'analyse. Il peut s'agir de fichiers CSV ou Excel, par exemple.
+-   **data:** Il contient les fichiers de données source (brutes) que vous utiliserez dans l'analyse. Il peut s'agir de fichiers CSV ou Excel, par exemple.
 
-- **scripts:** Ce sous-dossier est l'endroit où vous conservez vos scripts R. Vous pouvez également enregistrer les fichiers RMarkdown dans ce dossier. (Vous découvrirez bientôt les fichiers RMarkdown.)
+-   **scripts:** Ce sous-dossier est l'endroit où vous conservez vos scripts R. Vous pouvez également enregistrer les fichiers RMarkdown dans ce dossier. (Vous découvrirez bientôt les fichiers RMarkdown.)
 
-- **outputs:** Ici, vous enregistrez les résultats de votre analyse, comme les graphiques et les tableaux récapitulatifs. Ces résultats doivent être *jetables* et *reproductibles*. Autrement dit, vous devriez pouvoir régénérer les résultats en exécutant le code dans vos scripts. Vous le comprendrez mieux bientôt.
+-   **outputs:** Ici, vous enregistrez les résultats de votre analyse, comme les graphiques et les tableaux récapitulatifs. Ces résultats doivent être *jetables* et *reproductibles*. Autrement dit, vous devriez pouvoir régénérer les résultats en exécutant le code dans vos scripts. Vous le comprendrez mieux bientôt.
 
 ------------------------------------------------------------------------
 
@@ -140,7 +139,7 @@ Créez maintenant ces trois sous-dossiers, "data", "scripts" et "outputs" dans v
 
 ## Ajout d'un jeu de données au dossier "data"
 
-Ensuite, vous devez déplacer le jeu de données Ebola que vous avez téléchargé dans la leçon précédente vers le sous-dossier "data" nouvellement créé (vous pouvez retélécharger ce jeu de données sur [bit.ly/ebola-data](https://bit. ly/ebola-data){target="_blank"} si vous ne parvenez pas à retrouver l'endroit où vous l'avez stocké).
+Ensuite, vous devez déplacer le jeu de données Ebola que vous avez téléchargé dans la leçon précédente vers le sous-dossier "data" nouvellement créé (vous pouvez retélécharger ce jeu de données sur [bit.ly/ebola-data](https://bit.%20ly/ebola-data){target="_blank"} si vous ne parvenez pas à retrouver l'endroit où vous l'avez stocké).
 
 La procédure de déplacement de ce jeu de données vers le dossier "data" est différente pour les utilisateurs de RStudio Cloud et ceux utilisant un ordinateur local. Passez à la section qui vous concerne.
 
@@ -156,17 +155,17 @@ Cela fera apparaître une boîte de dialogue dans laquelle vous pourrez sélecti
 
 Sur un ordinateur local, cette étape doit être effectuée avec l'Explorateur de fichiers/Finder de votre ordinateur.
 
-- Tout d'abord, localisez le dossier project avec l'Explorateur de fichiers/Finder de votre ordinateur. Si vous rencontrez des difficultés pour le localiser, RStudio peut vous aider : allez dans l'onglet "Files", cliquez sur "More" (l'icône d'engrenage), puis cliquez sur "Show Folder in New Window".
+-   Tout d'abord, localisez le dossier project avec l'Explorateur de fichiers/Finder de votre ordinateur. Si vous rencontrez des difficultés pour le localiser, RStudio peut vous aider : allez dans l'onglet "Files", cliquez sur "More" (l'icône d'engrenage), puis cliquez sur "Show Folder in New Window".
 
-     ![](images/show_folder_in_new_window.png){width="276"}
+    ![](images/show_folder_in_new_window.png){width="276"}
 
-     Vous accéderez ainsi au dossier Projet dans l'Explorateur de fichiers/Finder de votre ordinateur.
+    Vous accéderez ainsi au dossier Projet dans l'Explorateur de fichiers/Finder de votre ordinateur.
 
-- Maintenant, déplacez le jeu de données Ebola que vous avez téléchargé dans la leçon précédente vers le sous-dossier "data" nouvellement créé.
+-   Maintenant, déplacez le jeu de données Ebola que vous avez téléchargé dans la leçon précédente vers le sous-dossier "data" nouvellement créé.
 
-     Voici à quoi ressemblerait le déplacement du fichier sur macOS :
+    Voici à quoi ressemblerait le déplacement du fichier sur macOS :
 
-     ## ![](images/drag_from_downloads_to_data.png){width="498"}
+    \## ![](images/drag_from_downloads_to_data.png){width="498"}
 
 ## Création d'un script dans le dossier "scripts"
 
@@ -174,8 +173,8 @@ Ensuite, créez et enregistrez un nouveau script R dans le dossier "scripts". Vo
 
 ![](images/rstudio_new_script.png){width="504"}
 
-::: remarque
-Notez que ceci est différent de ce que vous avez fait jusqu'à présent lors de la création d'un nouveau script (avant, vous utilisiez l'option de menu "File > New File > New Script"). L'ancienne méthode est toujours valable; mais ce bouton "New Blank File" sera probablement plus rapide pour vous.
+::: side-note
+Notez que ceci est différent de ce que vous avez fait jusqu'à présent lors de la création d'un nouveau script (avant, vous utilisiez l'option de menu "File \> New File \> New Script"). L'ancienne méthode est toujours valable; mais ce bouton "New Blank File" sera probablement plus rapide pour vous.
 :::
 
 ------------------------------------------------------------------------
@@ -190,7 +189,7 @@ Il s'agit d'un processus que vous devez suivre au début de chaque projet d'anal
 
 Le reste de cette leçon vous apprendra comment effectuer votre analyse dans le contexte de cette configuration ou creation de dossier. À la fin, vous aurez un flux global de données et de résultats qui ressemble au schéma ci-dessous :
 
-![Figure : Flux de données dans un projet R. Les scripts du dossier "scripts" importent les données du dossier "data" et exportent les données et les graphiques vers le dossier "outputs"](images/project_folder_structure_flow.png){width="544"}
+![Figure : Flux de données dans un projet R. Les scripts du dossier "scripts" importent les données du dossier "data" et exportent les données et les graphiques vers le dossier "outputs"](images/project_folder_structure_flow_fr.png){width="544"}
 
 Vous devriez vous référer à ce diagramme au fur et à mesure que vous avancez dans les sections ci-dessous, afin de vous aider à vous orienter.
 
@@ -217,7 +216,7 @@ pacman::p_load(
 # Charger les données ----
 ebola_sierra_leone <- read_csv("") # DONNÉES EN ATTENTE ! NOUS LE METTRONS À JOUR CI-DESSOUS.
 
-# Cas par district ----
+# Cas par départements ----
 district_tab <- tabyl(ebola_sierra_leone, district)
 district_tab
 
@@ -257,7 +256,7 @@ Si cela réussit, vous devriez voir apparaître les données dans l'onglet Envir
 
 ![](images/environment_with_ebola_data.png){width="450"}
 
-::: point-clé
+::: key-point
 **Chemins relatifs**
 
 Le chemin que vous avez utilisé ici, "data/ebola_sierra_leone.csv", est appelé un chemin *relatif*, car il est relatif à la *racine* (ou à la *base*) de votre projet.
@@ -293,10 +292,10 @@ Donc, pour garder les choses cohérentes, nous vous recommandons toujours d'util
 
 L'importation de données n'est pas le seul avantage de RStudio Projects ; l'exportation de données est également simplifiée lorsque vous utilisez Projects. Voyons maintenant ce qu'il en est.
 
-Dans la section "Cas par district" de votre script, vous devriez avoir :
+Dans la section "Cas par départements" de votre script, vous devriez avoir :
 
 ```{r results = "hide"}
-# Cas par district ----
+# Cas par départements ----
 district_tab <- tabyl(ebola_sierra_leone, district)
 district_tab
 ```
@@ -313,21 +312,21 @@ Maintenant, imaginez que vous souhaitiez exporter ce tableau au format CSV. Ce s
 write_csv(x = district_tab, file = "")
 ```
 
-Avec la fonction `write_csv()`, vous allez "écrire" (ou "enregistrer") la table `district_tab` sous forme de fichier CSV.
+Avec la fonction `write_csv()`, vous allez "écrire" (ou "enregistrer") le tableau `district_tab` sous forme de fichier CSV.
 
-L'argument `x` de `write_csv()` prend en compte l'objet à sauvegarder (dans ce cas `district_tab`). Et l'argument `file` prend en compte le chemin du fichier cible. Ce chemin de fichier cible peut être un simple chemin relatif : "outputs/district_tableau.csv". (Et, comme mentionné précédemment, nous devrions envelopper le chemin dans `here()`.) Saisissez ceci et exécutez-le maintenant :
+L'argument `x` de `write_csv()` prend en compte l'objet à sauvegarder (dans ce cas `district_tab`). Et l'argument `file` prend en compte le chemin du fichier cible. Ce chemin de fichier cible peut être un simple chemin relatif : "outputs/departement_tableau.csv". (Et, comme mentionné précédemment, nous devrions envelopper le chemin dans `here()`.) Saisissez ceci et exécutez-le maintenant :
 
 ```{r eval = F}
-write_csv(x = district_tab, file = here("outputs/district_tableau.csv"))
+write_csv(x = district_tab, file = here("outputs/departement_tableau.csv"))
 ```
 
-Le chemin "outputs/district_tableau.csv" indique à `write_csv()` d'enregistrer le graphique dans un fichier CSV nommé "districts_tableau" dans le dossier "outputs" du projet.
+Le chemin "outputs/departement_tableau.csv" indique à `write_csv()` d'enregistrer le graphique dans un fichier CSV nommé "departement_tableau" dans le dossier "outputs" du projet.
 
-::: remarque
-Vous pouvez remplacer "district_tableau.csv" par tout autre nom approprié, par exemple "tableau de freq par districts.csv" :
+::: side-note
+Vous pouvez remplacer "departement_tableau.csv" par tout autre nom approprié, par exemple "tableau de freq par départements.csv" :
 
 ```{r eval = F}
-write_csv(x = district_tab, file = here("outputs/tableau de freq par districts.csv"))
+write_csv(x = district_tab, file = here("outputs/tableau de freq par départements.csv"))
 ```
 :::
 
@@ -347,7 +346,7 @@ Cela devrait faire apparaître une fenêtre de visualisation RStudio :
 
 Si vous souhaitez plutôt visualiser le CSV dans Microsoft Excel, vous pouvez accéder au même fichier dans le Finder/Explorateur de fichiers de votre ordinateur et double-cliquer dessus à partir de là.
 
-::: rappel
+::: reminder
 Pour localiser votre dossier de projet dans le Finder/Explorateur de fichiers de votre ordinateur, allez dans l'onglet "Files", cliquez sur l'icône d'engrenage, puis cliquez sur "Show Folder in New Window".
 
 ![](images/show_folder_in_new_window.png){width="289"}
@@ -361,10 +360,10 @@ Si vous êtes sur RStudio cloud, vous ne pourrez pas visualiser le CSV dans Micr
 
 Si vous avez besoin de mettre à jour le CSV de sortie, vous pouvez simplement réexécuter la fonction `write_csv()` avec l'objet de données mis à jour.
 
-Pour tester cela, remplacez la section "Cas par district" de votre script par le code suivant. Il utilise la fonction `arrange()` pour organiser le tableau dans l'ordre du nombre de cas, `n` :
+Pour tester cela, remplacez la section "Cas par département" de votre script par le code suivant. Il utilise la fonction `arrange()` pour organiser le tableau dans l'ordre du nombre de cas, `n` :
 
 ```{r eval = F}
-# Cas par district ----
+# Cas par département ----
 district_tab <- tabyl(ebola_sierra_leone, district)
 district_tab_arranged <- arrange(district_tab, -n)
 district_tab_arranged
@@ -375,16 +374,16 @@ district_tab_arranged
 La sortie devrait être :
 
 ```{r echo = F}
-# Cas par district ----
+# Cas par département ----
 district_tab <- tabyl(ebola_sierra_leone, district)
-district_tab_arrange <- arrange(district_tab, -n)
-district_tab_arrange
+district_tab_arranged <- arrange(district_tab, -n)
+district_tab_arranged
 ```
 
-Vous pouvez maintenant remplacer l'ancien fichier "district_tableau.csv" en réexécutant la fonction write_csv avec l'objet `district_tab` :
+Vous pouvez maintenant remplacer l'ancien fichier "departement_tableau.csv" en réexécutant la fonction write_csv avec l'objet `district_tab_arrange` :
 
 ```{r eval = F}
-write_csv(x = district_tab_arrange, file = here("outputs/district_tableau.csv"))
+write_csv(x = district_tab_arrange, file = here("outputs/departement_tableau.csv"))
 ```
 
 Pour vérifier que le jeu de données a bien été mis à jour, observez la section "Modified" dans l'onglet Files de RStudio :
@@ -483,16 +482,10 @@ C'est tout pour le moment. Rendez-vous à la prochaine leçon.
 
 Les membres de l'équipe suivants ont contribué à cette leçon : `r tgc_contributors_list(ids = c("kendavidn", "laure"))`
 
-<!-- Seuls les membres de l'équipe qui ont contribué "substantiellement" à une leçon spécifique doivent être répertoriés ici -->
-
-<!-- Voir https://tinyurl.com/icjme-authorship pour des notes sur la contribution "substantielle"-->
-
 ## Références {.unlisted .unnumbered}
 
 Certains éléments de cette leçon ont été adaptés à partir des sources suivantes :
 
-- Wickham, H., & Grolemund, G. (n.d.). *R pour science des données*. 8 Workflow : projets \| R pour Data Science. Extrait le 31 mai 2022 de <https://r4ds.had.co.nz/workflow-projects.html>
-
-<!-- (format Chicago. Vous pouvez utiliser https://www.citationmachine.net) -->
+-   Wickham, H., & Grolemund, G. (n.d.). *R pour science des données*. 8 Workflow : projets \| R pour Data Science. Extrait le 31 mai 2022 de <https://r4ds.had.co.nz/workflow-projects.html>
 
 `r tgc_license()`

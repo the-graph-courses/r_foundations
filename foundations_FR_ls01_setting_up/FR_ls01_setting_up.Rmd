@@ -58,11 +58,11 @@ Voici RStudio, votre nouvelle maison pour longtemps !
 
 En haut de l'écran, renommez le nom de projet "Untitled Project" en quelque chose comme "r_intro".
 
-![](images/rstudio_cloud_name_project.png){width="500"}
+![](images/rstudio_cloud_name_project_fr.png){width="500"}
 
 Vous pouvez commencer à utiliser R en saisissant du code dans l'onglet "console" à gauche :
 
-![](images/rstudio_cloud_console.png){width="500"}
+![](images/rstudio_cloud_console_fr.png){width="500"}
 
 Essayez d'utiliser R comme calculatrice ici ; tapez '2 + 2' et appuyez sur Entrée.
 
@@ -114,7 +114,7 @@ Voici RStudio, votre nouvelle maison pour longtemps !
 
 Vous pouvez commencer à utiliser R en saisissant du code dans l'onglet "console" à gauche :
 
-![](images/windows_write_code_here.png){width="500"}
+![](images/windows_write_code_here_fr.png){width="500"}
 
 Essayez d'utiliser R comme calculatrice ici ; tapez '2 + 2' et appuyez sur Entrée.
 
@@ -132,7 +132,7 @@ Si vous travaillez sur macOS, suivez les étapes ci-dessous pour télécharger e
 
 2.  Téléchargez et installez la version de R correspondant à votre Mac. Pour la plupart des gens, c'est la première option de la rubrique "Dernière version" qu'il faudra choisir.
 
-    ![](images/r_mac_select_version.png){width="800"}
+    ![](images/r_mac_select_version_fr.png){width="800"}
 
 3.  Une fois le téléchargement terminé, cliquez sur le fichier téléchargé, puis suivez les instructions de la fenêtre d'installation.
 
@@ -158,7 +158,7 @@ Voici RStudio, votre nouvelle maison pour longtemps !
 
 Vous pouvez commencer à utiliser R en saisissant du code dans l'onglet "console" à gauche :
 
-![](images/mac_write_code_here.png){width="500"}
+![](images/mac_write_code_here_fr.png){width="500"}
 
 Essayez d'utiliser R comme calculatrice ici ; tapez '2 + 2' et appuyez sur Entrée.
 
@@ -176,7 +176,8 @@ tgc_contributors_list(ids = c("kendavidn",
                                "michals",
                                "elmuko",
                                "Olivia",
-                              "laure"))
+                              "laure",
+                              "sabina"))
 ```
 
 # Références {.unlisted .unnumbered}

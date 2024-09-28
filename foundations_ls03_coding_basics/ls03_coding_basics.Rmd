@@ -927,7 +927,7 @@ With your new knowledge of R objects, R functions and the packages that function
 
 
 
-## Answers {.unlisted .unnumbered}
+# Answers 
 
 1.  True.
 
